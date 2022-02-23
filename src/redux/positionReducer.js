@@ -5,19 +5,22 @@ const FETCH_POSITION = 'FETCH_POSITION';
 const SET_POSITION = 'SET_POSITION';
 const SET_DATA_LIST_CITIES = 'SET_DATA_LIST_CITIES';
 const RESET_DATA_LIST_CITIES = 'RESET_DATA_LIST_CITIES';
+// const FIRST_START = 'FIRST_START';
 
 const defaultState = {
-  coords: null,
+  longitude: null,
+  latitude: null,
   isFetchingPosition: false,
   position: null,
   listboxCityNames: [],
+  // firstStart: false,
 };
 
 const positionReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_COORDS:
       return {
-        ...state, coords: action.payload,
+        ...state, longitude: action.payload.longitude, latitude: action.payload.latitude,
       };
     case FETCH_POSITION:
       return {
@@ -35,6 +38,10 @@ const positionReducer = (state = defaultState, action) => {
       return {
         ...state, listboxCityNames: action.payload,
       };
+    // case FIRST_START:
+    //   return {
+    //     ...state, firstStart: action.payload,
+    //   };
     default: return state;
   }
 };
@@ -44,11 +51,12 @@ export const fetchPosition = (payload) => ({ type: FETCH_POSITION, payload });
 export const setPosition = (position) => ({ type: SET_POSITION, payload: position });
 export const setDataListCities = (payload) => ({ type: SET_DATA_LIST_CITIES, payload });
 export const resetDataListCities = () => ({ type: SET_DATA_LIST_CITIES, payload: [] });
+// export const firstStartSet = () => ({ type: FIRST_START, payload: true });
 
-export function getPosition(coords) {
+export function getPosition(longitude, latitude) {
   return async (dispatch) => {
     dispatch(fetchPosition(true));
-    const data = await openGeocodingAPI.getPlace(coords);
+    const data = await openGeocodingAPI.getPlace(longitude, latitude);
     console.log('Получаем населенный пункт с поомщью координат:', data);
     //  get names : place, country from apiData
     const place = {

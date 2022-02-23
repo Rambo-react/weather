@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCoords, getAllMatches, resetDataListCities } from '../reducers/positionReducer';
+import { setCoords, getAllMatches, resetDataListCities } from '../redux/positionReducer';
 
 function SearchPanel() {
   const weatherIsFetching = useSelector((state) => state.weather.isFetching);

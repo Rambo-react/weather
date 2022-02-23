@@ -5,21 +5,27 @@ import InfoPanel from './components/InfoPanel';
 import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';
 import WeatherPanel from './components/WeatherPanel';
-import { getPosition, setCoords } from './reducers/positionReducer';
-import { getWeatherFromApi } from './reducers/weatherReducer';
+import { getPosition, setCoords } from './redux/positionReducer';
+import { getWeatherFromApi } from './redux/weatherReducer';
 
 function App() {
-  const coords = useSelector((state) => state.geoposition.coords);
+  // const coords = useSelector((state) => state.geoposition.coords);
   const selectedApi = useSelector((state) => state.weather.selectedApi);
+  const longitude = useSelector((state) => state.geoposition.longitude);
+  const latitude = useSelector((state) => state.geoposition.latitude);
+  // const firstStart = useSelector((state) => state.geoposition.firstStart);
   const dispatch = useDispatch();
 
-  console.log('2)App coords ', coords);
+  console.log('2)App coords ', longitude, ' lat', latitude);
   console.log('3)App selectedApi ', selectedApi);
 
   //  navigator functions success/error
   function successPos(position) {
     console.log('получаем координаты из Навигатора:', position.coords);
-    dispatch(setCoords(position.coords));
+    if (!longitude && !latitude) {
+      console.log('СЕТАЕМ КООРДЛИНАТЫ:', position.coords);
+      dispatch(setCoords(position.coords));
+    }
   }
 
   function errorPos() {
@@ -37,21 +43,23 @@ function App() {
 
   //  Get position if coords not null
   useEffect(() => {
-    console.log('useEffect где зависимость только координаты', coords);
-    if (coords) {
+    console.log('useEffect где зависимость только координаты', longitude, latitude);
+    if (longitude && latitude) {
       console.log('useEffect где зависимость только координаты, getPosition');
-      dispatch(getPosition(coords));
+      dispatch(getPosition(longitude, latitude));
     }
-  }, [coords]);
+  }, [longitude, latitude]);
 
   //  GET weather data if got city name
   useEffect(() => {
-    console.log('useEffect где зависимость координаты и выбранный апи', coords);
-    if (coords) {
-      console.log('useEffect где зависимость координаты и выбранный апи,getWeatherFromApi', coords);
-      dispatch(getWeatherFromApi(coords, selectedApi));
+    console.log('useEffect где зависимость координаты и выбранный апи', longitude, latitude);
+    if (longitude && latitude) {
+      console.log('useEffect где зависимость координаты и выбранный апи,getWeatherFromApi', longitude, latitude);
+      // eslint-disable-next-line no-debugger
+      // debugger;
+      dispatch(getWeatherFromApi(longitude, latitude, selectedApi));
     }
-  }, [coords, selectedApi]);
+  }, [longitude, latitude, selectedApi]);
 
   return (
     <div className="App" style={{ background: '#366' }}>

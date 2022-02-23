@@ -40,13 +40,15 @@ function numRound(num) {
   return (Math.round(num) === +'-0') ? 0 : Math.round(num);
 }
 
-export function getWeatherFromApi(coords, selectedApi) {
+export function getWeatherFromApi(longitude, latitude, selectedApi) {
   return async (dispatch) => {
     dispatch(weatherFetch(true));
+    // eslint-disable-next-line no-debugger
+    // debugger;
     let data = null;
     let weekWeather = null;
     if (selectedApi === 'first') {
-      data = await weatherApiFirst.getWeather(coords);
+      data = await weatherApiFirst.getWeather(longitude, latitude);
       console.log('Получаем погоду из координат АПИ №1:', data);
       // разбираем данные на необходимые элементы
       data.daily.length = 7;
@@ -65,7 +67,7 @@ export function getWeatherFromApi(coords, selectedApi) {
         };
       });
     } else if (selectedApi === 'second') {
-      data = await weatherApiSecond.getWeather(coords);
+      data = await weatherApiSecond.getWeather(longitude, latitude);
       console.log('Получаем погоду из координат АПИ №2:', data);
       data.data.length = 7;
       weekWeather = data.data.map((el) => {
