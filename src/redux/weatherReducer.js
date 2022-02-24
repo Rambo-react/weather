@@ -33,22 +33,18 @@ export const setWeatherApi = (selectedApi) => ({ type: SET_WEATHER_API, selected
 export const weatherFetch = (payload) => ({ type: FETCH_WEATHER, payload });
 export const setWeather = (payload) => ({ type: SET_WEATHER, payload });
 
-// сделать в функциях загрузки данных с API, преобразование к одному формату при сохранении в state
-
 // округляет и если остается -0 то преобразует его в 0
 function numRound(num) {
   return (Math.round(num) === +'-0') ? 0 : Math.round(num);
 }
 
-export function getWeatherFromApi(longitude, latitude, selectedApi) {
+export function getWeatherFromApi(latitude, longitude, selectedApi) {
   return async (dispatch) => {
     dispatch(weatherFetch(true));
-    // eslint-disable-next-line no-debugger
-    // debugger;
     let data = null;
     let weekWeather = null;
     if (selectedApi === 'first') {
-      data = await weatherApiFirst.getWeather(longitude, latitude);
+      data = await weatherApiFirst.getWeather(latitude, longitude);
       console.log('Получаем погоду из координат АПИ №1:', data);
       // разбираем данные на необходимые элементы
       data.daily.length = 7;
@@ -67,7 +63,7 @@ export function getWeatherFromApi(longitude, latitude, selectedApi) {
         };
       });
     } else if (selectedApi === 'second') {
-      data = await weatherApiSecond.getWeather(longitude, latitude);
+      data = await weatherApiSecond.getWeather(latitude, longitude);
       console.log('Получаем погоду из координат АПИ №2:', data);
       data.data.length = 7;
       weekWeather = data.data.map((el) => {

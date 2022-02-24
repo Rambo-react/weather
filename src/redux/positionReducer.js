@@ -53,19 +53,20 @@ export const setDataListCities = (payload) => ({ type: SET_DATA_LIST_CITIES, pay
 export const resetDataListCities = () => ({ type: SET_DATA_LIST_CITIES, payload: [] });
 // export const firstStartSet = () => ({ type: FIRST_START, payload: true });
 
-export function getPosition(longitude, latitude) {
+export function getPosition(latitude, longitude) {
   return async (dispatch) => {
     dispatch(fetchPosition(true));
-    const data = await openGeocodingAPI.getPlace(longitude, latitude);
+    const data = await openGeocodingAPI.getPlace(latitude, longitude);
     console.log('Получаем населенный пункт с поомщью координат:', data);
     //  get names : place, country from apiData
+
     const place = {
       placeEn: data.features[0].text_en,
       placeRu: data.features[0].text_ru,
     };
     const country = {
-      countryEn: data.features[2].text_en,
-      countryRu: data.features[2].text_ru,
+      countryEn: (data.features[2]?.text_en || data.features[1].text_en),
+      countryRu: (data.features[2]?.text_ru || data.features[1].text_ru),
     };
     dispatch(fetchPosition(false));
     dispatch(setPosition({ place, country }));
@@ -82,8 +83,18 @@ export function getAllMatches(searchText) {
     if (data.length < 1) {
       alert('Совпадений нет, перефразируйте запрос поиска, введите название населённого пункта');
     } else {
+      let countryObj = null;
+      console.log('====================', data);
       const listboxCityList = data.map((el) => {
-        const countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
+        // проверка для таких стран как гонгонг
+        if (el.context) {
+          countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
+        } else {
+          countryObj = [{
+            text_en: el.place_name_en,
+            text_ru: el.place_name_ru,
+          }];
+        }
 
         return {
           placeFullName: {
@@ -95,8 +106,8 @@ export function getAllMatches(searchText) {
             countryRu: countryObj[0].text_ru,
           },
           coords: {
-            longitude: el.center[0],
             latitude: el.center[1],
+            longitude: el.center[0],
           },
         };
       });

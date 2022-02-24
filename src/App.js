@@ -16,7 +16,7 @@ function App() {
   // const firstStart = useSelector((state) => state.geoposition.firstStart);
   const dispatch = useDispatch();
 
-  console.log('2)App coords ', longitude, ' lat', latitude);
+  console.log('2)App coords ', latitude, longitude);
   console.log('3)App selectedApi ', selectedApi);
 
   //  navigator functions success/error
@@ -43,26 +43,26 @@ function App() {
 
   //  Get position if coords not null
   useEffect(() => {
-    console.log('useEffect где зависимость только координаты', longitude, latitude);
+    console.log('useEffect где зависимость только координаты', latitude, longitude);
     if (longitude && latitude) {
       console.log('useEffect где зависимость только координаты, getPosition');
-      dispatch(getPosition(longitude, latitude));
+      dispatch(getPosition(latitude, longitude));
     }
-  }, [longitude, latitude]);
+  }, [latitude, longitude]);
 
   //  GET weather data if got city name
   useEffect(() => {
-    console.log('useEffect где зависимость координаты и выбранный апи', longitude, latitude);
+    console.log('useEffect где зависимость координаты и выбранный апи', latitude, longitude);
     if (longitude && latitude) {
-      console.log('useEffect где зависимость координаты и выбранный апи,getWeatherFromApi', longitude, latitude);
+      console.log('useEffect где зависимость координаты и выбранный апи,getWeatherFromApi', latitude, longitude);
       // eslint-disable-next-line no-debugger
       // debugger;
-      dispatch(getWeatherFromApi(longitude, latitude, selectedApi));
+      dispatch(getWeatherFromApi(latitude, longitude, selectedApi));
     }
-  }, [longitude, latitude, selectedApi]);
+  }, [latitude, longitude, selectedApi]);
 
   return (
-    <div className="App" style={{ background: '#366' }}>
+    <div className="App">
       <SelectApiPanel selectedApi={selectedApi} />
       <SearchPanel />
       <InfoPanel />
