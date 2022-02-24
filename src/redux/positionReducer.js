@@ -59,14 +59,14 @@ export function getPosition(latitude, longitude) {
     const data = await openGeocodingAPI.getPlace(latitude, longitude);
     console.log('Получаем населенный пункт с поомщью координат:', data);
     //  get names : place, country from apiData
-
+    console.log('======EQUIL=', (data[2].text_en || data[1].text_en));
     const place = {
-      placeEn: data.features[0].text_en,
-      placeRu: data.features[0].text_ru,
+      placeEn: data[0].text_en,
+      placeRu: data[0].text_ru,
     };
     const country = {
-      countryEn: (data.features[2]?.text_en || data.features[1].text_en),
-      countryRu: (data.features[2]?.text_ru || data.features[1].text_ru),
+      countryEn: (data[2].text_en || data[1].text_en),
+      countryRu: (data[2].text_ru || data[1].text_ru),
     };
     dispatch(fetchPosition(false));
     dispatch(setPosition({ place, country }));

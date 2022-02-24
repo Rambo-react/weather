@@ -16,7 +16,7 @@ const language = 'en,ru';
 const openGeocodingAPI = {
   getPlace(latitude, longitude) {
     return (
-      instanceAx.get(`${longitude},${latitude}.json?${types}&language=${language}&access_token=${ACCESS_TOKEN}`).then((response) => response.data)
+      instanceAx.get(`${longitude},${latitude}.json?${types}&language=${language}&access_token=${ACCESS_TOKEN}`).then((response) => response.data.features)
     );
   },
   getCoordsByText(searchText) {
