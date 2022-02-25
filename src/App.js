@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
+import './App.scss';
 import InfoPanel from './components/InfoPanel';
 import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';

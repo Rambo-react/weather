@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/Place.scss';
 
 function Place({ placeEn, countryEn }) {
   console.log('locality in Place:', placeEn, countryEn);
