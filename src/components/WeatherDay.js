@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import WeatherIcon from './WeatherIcon';
 
 function WeatherDay({
   nameDay, temp, tempFeels, tempDay, tempNight, weatherDescription, weatherId, windSpeed,
@@ -22,7 +23,8 @@ function WeatherDay({
         {tempNight}
         &#176;
       </div>
-      <div>{weatherId}</div>
+      {/* <div>{weatherId}</div> */}
+      <WeatherIcon weatherId={weatherId} />
       <div>
         скорость ветра:
         {windSpeed}
