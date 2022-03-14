@@ -1,11 +1,24 @@
-@import 'Constants';
+@import "./utils.scss";
+
+.place-wrapper {
+  // padding-right: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.city,
+.country {
+  text-align: right;
+  color: $color-font;
+  @extend %shadow-text;
+}
 
 .city {
-  font-size: 3.5rem;
+  @include font(3.5rem, 500);
 }
 
 .country {
-  font-size: 2.5rem;
-  background-color: $color;
+  margin-top: 5px;
+  @include font(2rem, 300);
 }
-

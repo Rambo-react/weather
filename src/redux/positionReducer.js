@@ -59,15 +59,15 @@ export function getPosition(latitude, longitude) {
     const data = await openGeocodingAPI.getPlace(latitude, longitude);
     console.log('Получаем населенный пункт с поомщью координат:', data);
     //  get names : place, country from apiData
-    console.log('======EQUIL=', (data[2].text_en || data[1].text_en));
     const place = {
       placeEn: data[0].text_en,
       placeRu: data[0].text_ru,
     };
     const country = {
-      countryEn: (data[2].text_en || data[1].text_en),
-      countryRu: (data[2].text_ru || data[1].text_ru),
+      countryEn: (data[2]?.text_en || data[1].text_en),
+      countryRu: (data[2]?.text_ru || data[1].text_ru),
     };
+    console.log('======EQUIL COUNTRY=', country);
     dispatch(fetchPosition(false));
     dispatch(setPosition({ place, country }));
   };
@@ -76,47 +76,57 @@ export function getPosition(latitude, longitude) {
 export function getAllMatches(searchText) {
   return async (dispatch) => {
     dispatch(fetchPosition(true));
-
-    const data = await openGeocodingAPI.getCoordsByText(searchText);
-    console.log('Получаем массив совпадений и их координаты с помощью поисковой строки:', data);
-    // debugger;
-    if (data.length < 1) {
-      alert('Совпадений нет, перефразируйте запрос поиска, введите название населённого пункта');
+    if (searchText.includes(';')) {
+      dispatch(resetDataListCities());
     } else {
-      let countryObj = null;
-      console.log('====================', data);
-      const listboxCityList = data.map((el) => {
-        // проверка для таких стран как гонгонг
-        if (el.context) {
-          countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
-        } else {
-          countryObj = [{
-            text_en: el.place_name_en,
-            text_ru: el.place_name_ru,
-          }];
-        }
+      // ищем в строке уточнение в виде страны, после запятой
+      let countryISO;
+      let placeName;
+      if (searchText.includes(',')) {
+        placeName = searchText.split(',')[0].trim();
+        countryISO = searchText.split(',')[1].trim().toUpperCase();
+      } else {
+        placeName = searchText;
+      }
+      const data = await openGeocodingAPI.getCoordsByText(placeName, countryISO);
+      console.log('Получаем массив совпадений и их координаты с помощью поисковой строки:', data);
+      // debugger;
+      if (data.length < 1) {
+        dispatch(resetDataListCities());
+        console.log('Совпадений нет, перефразируйте запрос поиска, введите название населённого пункта');
+      } else {
+        let countryObj = null;
+        const listboxCityList = data.map((el) => {
+          // проверка для таких стран как гонгонг
+          if (el.context) {
+            countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
+          } else {
+            countryObj = [{
+              text_en: el.place_name_en,
+              text_ru: el.place_name_ru,
+            }];
+          }
 
-        return {
-          placeFullName: {
-            placeNameEn: el.place_name_en,
-            placeNameRu: el.place_name_ru,
-          },
-          country: {
-            countryEn: countryObj[0].text_en,
-            countryRu: countryObj[0].text_ru,
-          },
-          coords: {
-            latitude: el.center[1],
-            longitude: el.center[0],
-          },
-        };
-      });
-      console.log('Получаем listboxCityList:', listboxCityList);
-      dispatch(setDataListCities(listboxCityList));
+          return {
+            placeFullName: {
+              placeNameEn: el.place_name_en,
+              placeNameRu: el.place_name_ru,
+            },
+            country: {
+              countryEn: countryObj[0].text_en,
+              countryRu: countryObj[0].text_ru,
+            },
+            coords: {
+              latitude: el.center[1],
+              longitude: el.center[0],
+            },
+          };
+        });
+        dispatch(setDataListCities(listboxCityList));
+      }
     }
 
     // получаем массив совпадений
-
     dispatch(fetchPosition(false));
   };
 }

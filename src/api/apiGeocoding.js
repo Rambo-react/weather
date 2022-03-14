@@ -19,9 +19,11 @@ const openGeocodingAPI = {
       instanceAx.get(`${longitude},${latitude}.json?${types}&language=${language}&access_token=${ACCESS_TOKEN}`).then((response) => response.data.features)
     );
   },
-  getCoordsByText(searchText) {
+  getCoordsByText(searchText, countryISO = '') {
+    const countryId = countryISO ? (`&country=${countryISO}`) : '';
+
     return (
-      instanceAx.get(`/${searchText}.json?${typesCoords}&limit=${limit}&language=${language}&access_token=${ACCESS_TOKEN}`).then((response) => response.data.features)
+      instanceAx.get(`/${searchText}.json?${typesCoords}${countryId}&limit=${limit}&language=${language}&access_token=${ACCESS_TOKEN}`).then((response) => response.data.features)
     );
   },
 };

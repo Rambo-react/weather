@@ -1,0 +1,152 @@
+@import "./utils.scss";
+
+.todo-panel {
+  // flex: 1;
+  height: 285px;
+  padding: 5px 100px 5px 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.todo-list {
+  flex: 1;
+  max-height: 190px;
+  overflow: auto;
+  list-style-type: none;
+}
+
+.edit-panel-wrapper {
+  overflow-x: hidden;
+}
+
+.todo-edit-panel {
+  display: flex;
+  position: relative;
+  left: -1000px;
+  @extend %transition;
+  &.opened {
+    left: 0px;
+  }
+  & > *{
+    margin: 0 2px;
+  }
+}
+
+
+
+.todo-date,
+.todo-time {
+  border-radius: 20px;
+  padding: 0 7px;
+  border: none;
+  outline: none;
+}
+
+.todo-date {
+  width: 120px;
+  &::-webkit-calendar-picker-indicator {
+    margin-left: 5px;
+  }
+}
+
+.todo-time {
+  width: 80px;
+  &::-webkit-calendar-picker-indicator {
+    margin-left: 2px;
+  }
+}
+
+.todo-text {
+  flex: 1;
+  position: relative;
+  height: 30px;
+  padding: 0 10px 0 10px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  background-color: #fff;
+  @include font(1.5rem, 300);
+  @extend %transition;
+  &::-webkit-input-placeholder {
+    color: $bg-color-dark;
+  }
+  &:-moz-placeholder {
+    color: $bg-color-dark;
+  }
+  &:-ms-input-placeholder {
+    color: $bg-color-dark;
+  }
+  // box-shadow: 0 0 1px 0 rgba(#000000, 0.15), 0 6px 12px 0 rgba(#000000, 0.15);
+}
+
+.todo-accept,
+.todo-cancel,
+.todo-add {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 7px;
+  color: $color-inactive;
+  width: 60px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #fff;
+  // box-shadow: 0 0 1px 0 rgba(#000000, 0.15), 0 6px 12px 0 rgba(#000000, 0.15);
+  @include font(0.9rem, 500);
+  &:active {
+    color: $color-active;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2), inset 0 2px 1px rgba(0, 0, 0, 0.1);
+  }
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.accept-icon,
+.cancel-icon,
+.add-icon {
+  fill: $color-inactive-icon;
+}
+
+.todo-accept {
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    .accept-icon {
+      fill: $color-active-icon;
+    }
+  }
+}
+
+.todo-cancel {
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    .cancel-icon {
+      fill: $color-active-icon;
+    }
+  }
+}
+
+
+.todo-add {
+  position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    .add-icon {
+      fill: $color-active-icon;
+    }
+  }
+  &.opened {
+    display: none;
+  }
+}

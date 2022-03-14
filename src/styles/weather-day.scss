@@ -1,0 +1,43 @@
+@import "./utils.scss";
+
+.weather-day-wrapper {
+  // min-height: 255px;
+  margin: 3px;
+  padding: 2px;
+  text-align: center;
+}
+
+.name-day {
+  display: inline-block;
+  @include font(1.5rem, 500);
+  background-color: rgb(32, 43, 59);
+  border-radius: 10px;
+  padding: 7px 6px 2px 6px;
+}
+
+.weather-desc {
+  height: 28px;
+  margin-top: 5px;
+  @include font(1.2rem, 500);
+  @extend %shadow-text-hard;
+}
+
+.temp {
+  position: relative;
+  top: -10px;
+  @include font(3rem, 500);
+  @extend %shadow-text-hard;
+}
+
+.temp-feels {
+  margin-bottom: 5px;  
+}
+
+.temp-night, .temp-day, .temp-feels {
+  @include font(1.5rem, 300);
+  @extend %shadow-text-hard;
+}
+
+.temp-night {
+  color: rgb(201, 201, 201, .8);
+}

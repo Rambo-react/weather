@@ -1,0 +1,81 @@
+@import "./utils.scss";
+
+.select-api-wrapper {
+  // position: relative;
+  // height: 60px;
+}
+
+.tabs-container {
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+  // right: 20px;
+  // bottom: 0;
+  display: flex;
+  align-items: center;
+  // justify-content: flex-end;
+}
+
+.tabs {
+  display: flex;
+  position: relative;
+  background-color: rgba(#fff, 0.3);
+  box-shadow: 0 0 1px 0 rgba(#42567a, 0.15), 0 6px 12px 0 rgba(#42567a, 0.15);
+  padding: 0.5rem;
+  border-radius: 20px;  
+  * {
+    z-index: 2;
+  }
+}
+
+.api-selector {
+  display: none;
+}
+
+.tab {
+  color: $bg-color-dark;
+  // color: #3b435e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 170px;
+  @include font(1.2rem, 500);
+  border-radius: 20px; 
+  cursor: pointer;
+  @extend %transition;
+  &:hover {
+    color: #fff;
+  }
+}
+
+.label-checked {
+  color: #fff;
+  &[flag="first-api"] {
+    & ~ .glider {
+      transform: translateX(0);
+    }
+  }
+  &[flag="second-api"] {
+    & ~ .glider {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 30px;
+  width: 170px;
+  background-color: rgba(#3b435e, 0.7);
+  z-index: 1;
+  border-radius: 20px;
+  @extend %transition;
+}
+
+// @media (max-width: 700px) {
+//   .tabs {
+//     transform: scale(0.6);
+//   }
+// }

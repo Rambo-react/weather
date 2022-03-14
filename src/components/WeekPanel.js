@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import WeatherDay from './WeatherDay';
+import '../styles/week-panel.scss';
 
 function WeekPanel({ week }) {
   const weekDays = week.map((el) => (
@@ -17,7 +18,7 @@ function WeekPanel({ week }) {
   ));
 
   return (
-    <div style={{ border: '3px solid blue', padding: '10px' }}>
+    <div className="week-panel">
       {weekDays}
     </div>
   );

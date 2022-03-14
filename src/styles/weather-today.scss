@@ -1,0 +1,43 @@
+@import 'utils.scss';
+
+.weather-today-wrapper {
+  margin: auto 0;
+  padding: 0 30px;
+  text-align: center;
+}
+
+.today-weather-info {
+  display: flex;
+  text-align: center;
+  margin: auto 0;
+}
+
+.today {
+  display: inline-block;
+  @include font(1.5rem, 500);
+  background-color: rgb(32, 43, 59);
+  border-radius: 10px;
+  padding: 7px 6px 2px 6px;
+}
+
+.today-desc {
+  @include font(1.4rem, 500);
+  @extend %shadow-text-hard;
+  position: relative;
+  top: 10px;
+}
+
+.today-temp {
+  @include font(4rem, 500);
+  @extend %shadow-text-hard;
+  text-align: left;
+  margin: 5px 0 0 5px;
+}
+
+.today-temp-feels, .today-temp-day, .today-temp-night, .today-wind {
+  @include font(1.5rem, 300);
+  @extend %shadow-text-hard;
+  text-align: left;
+  margin: 5px 0 0 5px;
+  white-space: nowrap;
+}

@@ -1,56 +1,99 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useDebounce from '../redux/Hooks/useDebounce';
 import { setCoords, getAllMatches, resetDataListCities } from '../redux/positionReducer';
+import '../styles/search-panel.scss';
 
 function SearchPanel() {
-  const weatherIsFetching = useSelector((state) => state.weather.isFetching);
-  const positionIsFetching = useSelector((state) => state.geoposition.isFetchingPosition);
   const selectionArea = useSelector((state) => state.geoposition.listboxCityNames);
   const dispatch = useDispatch();
-  const input = React.createRef();
+  // const input = React.createRef();
+  // ============================================================================debounce
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+
+  useEffect(
+    () => {
+      if (debouncedSearchTerm && debouncedSearchTerm.length > 1) {
+        dispatch(getAllMatches(debouncedSearchTerm));
+        setIsSearching(false);
+      } else {
+        dispatch(resetDataListCities());
+        setIsSearching(false);
+      }
+    },
+    [debouncedSearchTerm],
+  );
+  // ============================================================================end debounce
 
   console.log('render SearchPanel');
+  console.log('isSearching', isSearching);
 
-  function setWeather(searchText) {
-    console.log('Нажали на кнопку поиска:', searchText);
-    dispatch(getAllMatches(searchText));
-    // dispatch(getWeatherFromApi(coords, selectedApi));
-  }
-
-  function selectCity(coordsFromList) {
-    console.log('selectCity:', coordsFromList);
-    dispatch(setCoords(coordsFromList));
+  function changeCity(e) {
+    const longitude = e.target.attributes.long.value;
+    const latitude = e.target.attributes.lat.value;
+    dispatch(setCoords({ longitude, latitude }));
     dispatch(resetDataListCities());
+    setSearchTerm('');
   }
-  function handleKeyDown(e, coordsFromList) {
-    if (e.keyCode === 13) {
-      console.log('handleKeyDown:', coordsFromList);
-      dispatch(setCoords(coordsFromList));
-      dispatch(resetDataListCities());
+
+  function selectCity(e) {
+    if (e.target.className === 'search-drop-down-menu-item') {
+      changeCity(e);
     }
   }
 
-  function clearSearchList() {
-    dispatch(resetDataListCities());
+  function handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      changeCity(e);
+    }
+  }
+
+  function onChangeHandler(e) {
+    setIsSearching(true);
+    setSearchTerm(e.target.value);
+  }
+
+  function successPos(position) {
+    console.log('navigation button', position);
+    dispatch(setCoords(position.coords));
+  }
+
+  function errorPos() {
+    alert('Failed to get location data.');
+  }
+
+  function navigationHandler() {
+    if (!navigator.geolocation) {
+      alert('Browser no support NAVIGATOR');
+    } else {
+      navigator.geolocation.getCurrentPosition(successPos, errorPos);
+    }
   }
 
   return (
-    <div>
-      <input ref={input} placeholder="Enter city name" />
-      <button disabled={weatherIsFetching && positionIsFetching} type="submit" onClick={() => { setWeather(input.current.value); }}>set from NET weather</button>
-      <button disabled={weatherIsFetching && positionIsFetching} type="submit" onClick={() => { clearSearchList(); }}>clear search List</button>
-      <div>
-        {(selectionArea.length > 0) ? (
-          selectionArea.map((el) => (
-            (
-              <div role="button" tabIndex="0" key={el.placeFullName.placeNameEn} style={{ cursor: 'pointer', margin: '10px 0', border: '4px solid green' }} onClick={() => selectCity(el.coords)} onKeyDown={(e) => handleKeyDown(e, el.coords)}>
-                {el.placeFullName.placeNameEn}
-              </div>
-            )
-          ))
-        ) : (
-          <div> ЗДЕСЬ БУДУТ ОТОБРАЖАТЬСЯ РЕЗУЛЬТАТЫ ПОИСКА </div>
-        )}
+    <div className="search-block">
+      <div className="search-panel">
+        <div className="search-wrapper">
+          <input value={searchTerm} className={`search ${isSearching && 'loading'} ${selectionArea.length > 0 && 'open'}`} placeholder="Search city" title="Enter the name of the city." onChange={(e) => onChangeHandler(e)} />
+          {(selectionArea.length > 0) && (
+            <ul tabIndex={0} role="menu" className="search-drop-down-menu" onClick={selectCity} onKeyDown={handleKeyDown}>
+              {selectionArea.map((el) => (
+                <li key={el.placeFullName.placeNameEn} long={el.coords.longitude} lat={el.coords.latitude} className="search-drop-down-menu-item">
+                  {el.placeFullName.placeNameEn}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div tabIndex={-1} className="search-position" title="Find my location?" role="button" onClick={navigationHandler} onKeyDown={navigationHandler}>
+          <div className="search-position-icon"> </div>
+        </div>
+      </div>
+      <div className={`not-found ${(searchTerm && selectionArea.length < 1 && !isSearching) && 'open'}`}>
+        Not found. To make search more precise put the city&apos;
+        s name, comma, 2-letter country code (ISO 3166).
       </div>
     </div>
   );

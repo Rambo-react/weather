@@ -5,10 +5,12 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import weatherReducer from './weatherReducer';
 import positionReducer from './positionReducer';
+import todoReducer from './todoReducer';
 
 const rootReducer = combineReducers({
   weather: weatherReducer,
   geoposition: positionReducer,
+  todo: todoReducer,
 });
 
 const persistConfig = {

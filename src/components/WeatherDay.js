@@ -1,33 +1,35 @@
 import PropTypes from 'prop-types';
 import WeatherIcon from './WeatherIcon';
+import '../styles/weather-day.scss';
 
 function WeatherDay({
-  nameDay, temp, tempFeels, tempDay, tempNight, weatherDescription, weatherId, windSpeed,
+  nameDay, temp, tempFeels, tempDay, tempNight, weatherDescription, weatherId,
 }) {
   return (
-    <div style={{ border: '1px solid red', margin: '5px' }}>
-      <div className="ico">{weatherDescription}</div>
-      <div>{nameDay}</div>
-      <div>
+    <div className="weather-day-wrapper">
+      <div className="name-day">
+        {nameDay.toUpperCase()}
+      </div>
+      <div className="weather-desc">{weatherDescription}</div>
+      <WeatherIcon weatherId={weatherId} />
+      <div className="temp">
         {temp}
         &#176;
       </div>
-      <div>
-        {tempFeels}
-        &#176;
+      <div className="temp-feels">
+        {`Feels like ${tempFeels}`}
+        &#176;.
       </div>
       <div>
-        {tempDay}
-        &#176;
-        /
-        {tempNight}
-        &#176;
-      </div>
-      {/* <div>{weatherId}</div> */}
-      <WeatherIcon weatherId={weatherId} />
-      <div>
-        скорость ветра:
-        {windSpeed}
+        <span className="temp-day">
+          {tempDay}
+          &#176;
+        </span>
+        <span className="temp-night">
+          /
+          {tempNight}
+          &#176;
+        </span>
       </div>
     </div>
   );
@@ -41,7 +43,6 @@ WeatherDay.defaultProps = {
   tempNight: 'н/д',
   weatherDescription: 'н/д',
   weatherId: 'н/д',
-  windSpeed: 'н/д',
 };
 
 WeatherDay.propTypes = {
@@ -52,7 +53,6 @@ WeatherDay.propTypes = {
   tempNight: PropTypes.number,
   weatherDescription: PropTypes.string,
   weatherId: PropTypes.number,
-  windSpeed: PropTypes.number,
 };
 
 export default WeatherDay;

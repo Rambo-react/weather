@@ -1,0 +1,25 @@
+%transition {
+  transition: .25s ease-out;
+}
+
+%transition-color {
+  transition: color 0.15s ease-in;
+}
+
+%font-primary {
+  // font-family: 'Kanit', sans-serif;
+  // font-family: 'Ubuntu', sans-serif;
+  font-family: 'Spartan', sans-serif;
+}
+
+
+
+%shadow-text {
+ text-shadow: 1px 1px 5px black;
+}
+
+%shadow-text-hard {
+  text-shadow: 1px 1px 2px black;
+}
+
+//  @extend %font-primary

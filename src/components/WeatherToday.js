@@ -1,42 +1,46 @@
 import PropTypes from 'prop-types';
 import WeatherIcon from './WeatherIcon';
+import '../styles/weather-today.scss';
 
 function WeatherToday({
-  nameDay, temp, tempFeels, tempDay, tempNight, weatherDescription, weatherId, windSpeed,
+  temp, tempFeels, tempDay, tempNight, weatherDescription, weatherId, windSpeed,
 }) {
   return (
-    <div style={{ border: '2px solid red', margin: '5px' }}>
-      <div className="ico">{weatherDescription}</div>
-      <div>{nameDay}</div>
-      <div>
-        {temp}
-        &#176;
-      </div>
-      <div>
-        {tempFeels}
-        &#176;
-      </div>
-      <div>
-        {tempDay}
-        &#176;
-        /
-        {tempNight}
-        &#176;
-      </div>
-      <WeatherIcon weatherId={weatherId} />
-      <div>
-        {weatherId}
-      </div>
-      <div>
-        скорость ветра:
-        {windSpeed}
+    <div className="weather-today-wrapper">
+      {/* <div className="today">{`Today, ${nameDay}`}</div> */}
+      <div className="today">TODAY</div>
+      <div className="today-weather-info">
+        <div>
+          <div className="today-desc">{weatherDescription}</div>
+          <WeatherIcon weatherId={weatherId} classN="weather-ico-today" />
+        </div>
+        <div>
+          <div className="today-temp">
+            {temp}
+            &#176;
+          </div>
+          <div className="today-temp-feels">
+            {`Feels like ${tempFeels}`}
+            &#176;.
+          </div>
+          <div className="today-temp-day">
+            {`Day: ${tempDay}`}
+            &#176;.
+          </div>
+          <div className="today-temp-night">
+            {`Night: ${tempNight}`}
+            &#176;.
+          </div>
+          <div className="today-wind">
+            {`Speed wind: ${Math.round(windSpeed)} m/s.`}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 WeatherToday.defaultProps = {
-  nameDay: 'н/д',
   temp: 'н/д',
   tempFeels: 'н/д',
   tempDay: 'н/д',
@@ -47,7 +51,6 @@ WeatherToday.defaultProps = {
 };
 
 WeatherToday.propTypes = {
-  nameDay: PropTypes.string,
   temp: PropTypes.number,
   tempFeels: PropTypes.number,
   tempDay: PropTypes.number,

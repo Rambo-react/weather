@@ -2,16 +2,27 @@ import { useSelector } from 'react-redux';
 import Preloader from './Preloader/Preloader';
 import WeatherToday from './WeatherToday';
 import WeekPanel from './WeekPanel';
+import '../styles/weather-panel.scss';
 
 function WeatherPanel() {
   const weatherData = useSelector((state) => state.weather.weatherData);
-  if (!weatherData) {
-    return <Preloader />;
+  const isFetching = useSelector((state) => state.weather.isFetching);
+  if (isFetching) {
+    return (
+      <Preloader />
+    );
   }
+
+  if (!weatherData) {
+    return (
+      <div>NO data</div>
+    );
+  }
+
   const [today, ...week] = weatherData;
 
   return (
-    <div style={{ border: '3px solid yellow' }}>
+    <div className="weather-wrapper">
       <WeatherToday
         nameDay={today.nameDay}
         temp={today.temp}

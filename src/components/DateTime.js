@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import '../styles/date-time.scss';
 
 function DateTime() {
   const [time, setTime] = useState(moment());
@@ -14,14 +15,14 @@ function DateTime() {
   }, []);
 
   return (
-    <div style={{ border: '1px solid blue' }}>
-      <h2>
-        {time.format('h:mm:ss')}
-        <span>
-          {time.format(' a')}
+    <div className="datetime-wrapper">
+      <h2 className="time">
+        {time.format('HH:mm')}
+        <span className="times-of-day">
+          {time.format(' A')}
         </span>
       </h2>
-      <h3>
+      <h3 className="date">
         {time.format('dddd, D MMMM YYYY')}
       </h3>
     </div>

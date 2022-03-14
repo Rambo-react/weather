@@ -9,7 +9,7 @@ const exclude = 'current,minutely,hourly,alerts';
 export const weatherApiFirst = {
   getWeather(latitude, longitude) {
     return (
-      instanceAxiosFirst.get(`onecall?lat=${latitude}&lon=${longitude}&exclude=${exclude}&units=metric&appid=${FIRST_API_KEY}`).then((response) => response.data).catch(() => console.error('error Weather First API'))
+      instanceAxiosFirst.get(`onecall?lat=${latitude}&lon=${longitude}&exclude=${exclude}&units=metric&appid=${FIRST_API_KEY}`).then((response) => response.data).catch(() => [])
     );
   },
 };
@@ -24,7 +24,7 @@ const countDays = 7;
 export const weatherApiSecond = {
   getWeather(latitude, longitude) {
     return (
-      instanceAxiosSecond.get(`/forecast/daily?lat=${latitude}&lon=${longitude}&days=${countDays}&units=M&key=${SECOND_API_KEY}`).then((response) => response.data).catch(() => console.error('error Weather Second API'))
+      instanceAxiosSecond.get(`/forecast/daily?lat=${latitude}&lon=${longitude}&days=${countDays}&units=M&key=${SECOND_API_KEY}`).then((response) => response.data).catch(() => [])
     );
   },
 };

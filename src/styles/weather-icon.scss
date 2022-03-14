@@ -1,0 +1,12 @@
+.weather-ico {
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 120px;
+  height: 120px;
+  &-today {
+    width: 150px;
+    height: 150px;
+  }
+}
+

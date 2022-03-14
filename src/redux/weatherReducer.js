@@ -44,30 +44,10 @@ const iconCodes = [
   { iconId: 84, codes: [804] },
   { iconId: 90, codes: [900] },
 ];
-// const iconCodes = [
-//   { iconId: 1, codes: [800] },
-//   { iconId: 2, codes: [801] },
-//   { iconId: 3, codes: [802] },
-//   { iconId: 4, codes: [803, 804] },
-//   { iconId: 6, codes: [700, 701, 711, 721, 731, 751, 742, 761, 762, 771, 781] },
-//   { iconId: 7, codes: [741, 751] },
-//   { iconId: 9, codes: [500, 520, 521] },
-//   { iconId: 10, codes: [522] },
-//   { iconId: 11, codes: [600, 620] },
-//   { iconId: 12, codes: [621, 622] },
-//   { iconId: 13, codes: [612, 613, 615] },
-//   { iconId: 16, codes: [200, 201, 202] },
-//   { iconId: 17, codes: [300, 301, 302, 310, 311, 312, 321, 501] },
-//   { iconId: 18, codes: [313, 314, 502, 503, 504, 531, 900] },
-//   { iconId: 19, codes: [511, 601] },
-//   { iconId: 20, codes: [602, 623] },
-//   { iconId: 21, codes: [610, 611, 616] },
-//   { iconId: 24, codes: [210, 211, 212, 221, 230, 231, 232, 233] },
-// ];
 
 const defaultState = {
   weatherData: null,
-  isFetching: true,
+  isFetching: false,
   selectedApi: 'first',
   iconCodes,
 };
