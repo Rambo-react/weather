@@ -1,9 +1,17 @@
+@import './utils.scss';
+
 .weather-wrapper {
   // max-height: 275px;
   // background: linear-gradient(360deg, rgb(34, 47, 82, 0.6) 0%, rgb(34, 47, 82, 0.6) 85%, rgba(0, 0, 0, 0) 100%);
   // background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%);
   display: flex;
   justify-content: space-between;
-   background-color: rgb(34, 47, 82, 0.6);
-  padding: 10px 25px 20px;
+  background-color: rgb(34, 47, 82, 0.6);
+  padding: 5px 25px 20px;
+  @include media-tablet {
+    flex-direction: column;
+  }
+  @include media-mobile {
+    padding: 5px 0 10px;
+  }
 }

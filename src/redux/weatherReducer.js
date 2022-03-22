@@ -4,45 +4,46 @@ import { weatherApiFirst, weatherApiSecond } from '../api/apiWeather';
 const FETCH_WEATHER = 'FETCH_WEATHER';
 const SET_WEATHER = 'SET_WEATHER';
 const SET_WEATHER_API = 'SET_WEATHER_API';
+const SET_BACKGROUND_DESC = 'SET_BACKGROUND_DESC';
 
 // коды иконок и коды погодных условий
 const iconCodes = [
-  { iconId: 21, codes: [200, 230, 231] },
-  { iconId: 22, codes: [201, 232] },
-  { iconId: 23, codes: [210] },
-  { iconId: 24, codes: [211] },
-  { iconId: 25, codes: [212] },
-  { iconId: 26, codes: [221] },
-  { iconId: 27, codes: [233] },
-  { iconId: 28, codes: [202] },
-  { iconId: 31, codes: [300] },
-  { iconId: 32, codes: [301, 310, 311, 321] },
-  { iconId: 33, codes: [302, 312] },
-  { iconId: 34, codes: [313, 314] },
-  { iconId: 51, codes: [500] },
-  { iconId: 52, codes: [501] },
-  { iconId: 53, codes: [502, 520, 521, 531] },
-  { iconId: 54, codes: [503, 504, 511, 522] },
-  { iconId: 61, codes: [600] },
-  { iconId: 62, codes: [601, 620] },
-  { iconId: 63, codes: [602, 621] },
-  { iconId: 64, codes: [610, 616] },
-  { iconId: 65, codes: [611, 612, 613, 615] },
-  { iconId: 66, codes: [622] },
-  { iconId: 67, codes: [623] },
-  { iconId: 71, codes: [700, 701] },
-  { iconId: 72, codes: [711] },
-  { iconId: 73, codes: [721] },
-  { iconId: 74, codes: [731] },
-  { iconId: 75, codes: [741, 742] },
-  { iconId: 76, codes: [751, 761, 762] },
-  { iconId: 77, codes: [771] },
-  { iconId: 78, codes: [781] },
-  { iconId: 81, codes: [800] },
-  { iconId: 82, codes: [801, 802] },
-  { iconId: 83, codes: [803] },
-  { iconId: 84, codes: [804] },
-  { iconId: 90, codes: [900] },
+  { iconId: 21, backgroundDesc: 'thunderstorm', codes: [200, 230, 231] },
+  { iconId: 22, backgroundDesc: 'thunderstorm', codes: [201, 232] },
+  { iconId: 23, backgroundDesc: 'thunderstorm', codes: [210] },
+  { iconId: 24, backgroundDesc: 'thunderstorm', codes: [211] },
+  { iconId: 25, backgroundDesc: 'thunderstorm', codes: [212] },
+  { iconId: 26, backgroundDesc: 'thunderstorm', codes: [221] },
+  { iconId: 27, backgroundDesc: 'thunderstorm', codes: [233] },
+  { iconId: 28, backgroundDesc: 'thunderstorm', codes: [202] },
+  { iconId: 31, backgroundDesc: 'drizzle', codes: [300] },
+  { iconId: 32, backgroundDesc: 'drizzle', codes: [301, 310, 311, 321] },
+  { iconId: 33, backgroundDesc: 'drizzle', codes: [302, 312] },
+  { iconId: 34, backgroundDesc: 'drizzle', codes: [313, 314] },
+  { iconId: 51, backgroundDesc: 'rain', codes: [500] },
+  { iconId: 52, backgroundDesc: 'rain', codes: [501] },
+  { iconId: 53, backgroundDesc: 'rain', codes: [502, 520, 521, 531] },
+  { iconId: 54, backgroundDesc: 'rain', codes: [503, 504, 511, 522] },
+  { iconId: 61, backgroundDesc: 'snow', codes: [600] },
+  { iconId: 62, backgroundDesc: 'snow', codes: [601, 620] },
+  { iconId: 63, backgroundDesc: 'snow', codes: [602, 621] },
+  { iconId: 64, backgroundDesc: 'snow', codes: [610, 616] },
+  { iconId: 65, backgroundDesc: 'snow', codes: [611, 612, 613, 615] },
+  { iconId: 66, backgroundDesc: 'snow', codes: [622] },
+  { iconId: 67, backgroundDesc: 'snow', codes: [623] },
+  { iconId: 71, backgroundDesc: 'mist', codes: [700, 701] },
+  { iconId: 72, backgroundDesc: 'mist', codes: [711] },
+  { iconId: 73, backgroundDesc: 'mist', codes: [721] },
+  { iconId: 74, backgroundDesc: 'sand', codes: [731] },
+  { iconId: 75, backgroundDesc: 'mist', codes: [741, 742] },
+  { iconId: 76, backgroundDesc: 'sand', codes: [751, 761, 762] },
+  { iconId: 77, backgroundDesc: 'wind', codes: [771] },
+  { iconId: 78, backgroundDesc: 'tornado', codes: [781] },
+  { iconId: 81, backgroundDesc: 'clear', codes: [800] },
+  { iconId: 82, backgroundDesc: 'cloudy', codes: [801, 802] },
+  { iconId: 83, backgroundDesc: 'cloudy', codes: [803] },
+  { iconId: 84, backgroundDesc: 'cloudy', codes: [804] },
+  { iconId: 90, backgroundDesc: '', codes: [900] },
 ];
 
 const defaultState = {
@@ -50,6 +51,7 @@ const defaultState = {
   isFetching: false,
   selectedApi: 'first',
   iconCodes,
+  backgroundDesc: 'none',
 };
 
 const weatherReducer = (state = defaultState, action) => {
@@ -66,6 +68,10 @@ const weatherReducer = (state = defaultState, action) => {
       return {
         ...state, weatherData: action.payload,
       };
+    case SET_BACKGROUND_DESC:
+      return {
+        ...state, backgroundDesc: action.payload,
+      };
     default: return state;
   }
 };
@@ -73,10 +79,17 @@ const weatherReducer = (state = defaultState, action) => {
 export const setWeatherApi = (selectedApi) => ({ type: SET_WEATHER_API, selectedApi });
 export const weatherFetch = (payload) => ({ type: FETCH_WEATHER, payload });
 export const setWeather = (payload) => ({ type: SET_WEATHER, payload });
+export const setBackgroundDesc = (payload) => ({ type: SET_BACKGROUND_DESC, payload });
 
 // округляет и если остается -0 то преобразует его в 0
 function numRound(num) {
   return (Math.round(num) === +'-0') ? 0 : Math.round(num);
+}
+
+// устанавливаем значение для фона
+function getBackgroundDesc(weatherId) {
+  const iconObj = iconCodes.find((item) => item.codes.includes(weatherId));
+  return iconObj.backgroundDesc;
 }
 
 export function getWeatherFromApi(latitude, longitude, selectedApi) {
@@ -125,6 +138,9 @@ export function getWeatherFromApi(latitude, longitude, selectedApi) {
     console.log('ТО что будет записано в базу:', weekWeather);
     dispatch(weatherFetch(false));
     dispatch(setWeather(weekWeather));
+    // установить погоду для бэкграунда
+    const backgroundDesc = getBackgroundDesc(weekWeather[0].weatherId);
+    dispatch(setBackgroundDesc(backgroundDesc));
   };
 }
 

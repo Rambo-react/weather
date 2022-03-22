@@ -12,7 +12,7 @@ function InfoPanel() {
       {(locality) ? (
         <Place placeEn={locality.place.placeEn} countryEn={locality.country.countryEn} />
       )
-        : (<h2>Нет данных</h2>)}
+        : (<h2>No data</h2>)}
     </div>
   );
 }

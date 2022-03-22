@@ -1,0 +1,63 @@
+@import './utils.scss';
+
+.contextmenu {
+  border-radius: 99px;
+  width: 27px;
+  border: 1px solid $color-white;
+  overflow-x: hidden;
+  @extend %transition;
+  &:active {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2), inset 0 2px 1px rgba(0, 0, 0, 0.1);
+  }
+  &.opened {
+    width: 100px;
+  }
+}
+
+.button-contextmenu {
+  width: 99px;
+  height: 23px;
+  display: flex;
+  // justify-content: space-around;
+  align-items: center;
+  & > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 23px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.contextmenu-icon {
+  fill: $color-white;
+  &-dots:active {
+    fill: $color-active-icon;
+  }
+  &-edit:active {
+    fill: $color-active-icon;
+  }
+  &-recover:active {
+    fill: $color-active-icon;
+  }
+  &-delete {
+    &.deleted {
+      fill: red;
+    }
+    &:active {
+      fill: $color-active-icon;
+    }
+  }
+}

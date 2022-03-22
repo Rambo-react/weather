@@ -1,23 +1,45 @@
-@import 'utils.scss';
+@import "utils.scss";
 
 .weather-today-wrapper {
   margin: auto 0;
-  padding: 0 30px;
   text-align: center;
+  @include media-tablet-big {
+    padding: 0;
+  }
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: rgb($bg-color-dark, 0.6);
+  }
+  @include media-mobile {
+    display:block;
+    // background-color: rgb($bg-color-dark, 0.6);
+    
+    // margin-bottom: 5px;
+  }
 }
 
 .today-weather-info {
   display: flex;
   text-align: center;
   margin: auto 0;
+  @include media-mobile {
+    justify-content: space-evenly;
+  }
 }
 
 .today {
+  margin-right: 10px;
   display: inline-block;
   @include font(1.5rem, 500);
   background-color: rgb(32, 43, 59);
-  border-radius: 10px;
-  padding: 7px 6px 2px 6px;
+  border-radius: 20px;
+  padding: 7px 10px 2px 10px;
+  @include media-mobile{
+    margin:5px 0 10px 0;
+  }
 }
 
 .today-desc {
@@ -25,6 +47,30 @@
   @extend %shadow-text-hard;
   position: relative;
   top: 10px;
+  @include media-tablet {
+    position: static;
+    padding-top: 4px;
+  }
+}
+
+.today-desc-block {
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+  }
+  @include media-mobile {
+    display:block;
+  }
+}
+
+.today-icon-block {
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+  }
+  @include media-mobile {
+    display:block;
+  }
 }
 
 .today-temp {
@@ -34,7 +80,10 @@
   margin: 5px 0 0 5px;
 }
 
-.today-temp-feels, .today-temp-day, .today-temp-night, .today-wind {
+.today-temp-feels,
+.today-temp-day,
+.today-temp-night,
+.today-wind {
   @include font(1.5rem, 300);
   @extend %shadow-text-hard;
   text-align: left;

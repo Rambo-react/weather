@@ -9,74 +9,21 @@
   align-items: center;
 }
 
-.button-contextmenu {
-  width: 99px;
-  height: 23px;
+.menu-wrapper {
   display: flex;
-  // justify-content: space-around;
-  align-items: center;
-  & > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 23px;
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-  &:hover {
-    cursor: pointer;
-  }
-  -moz-user-select: none;
-  -o-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.contextmenu {
-  border-radius: 99px;
-  width: 27px;
-  margin-right: 5px;
-  border: 1px solid $color-white;
   overflow-x: hidden;
-  @extend %transition;
-  &:active {
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2), inset 0 2px 1px rgba(0, 0, 0, 0.1);
-  }
-  &.opened {
-    width: 100px;
-  }
-}
-
-.contextmenu-icon {
-  fill: $color-white;
-  &-dots:active {
-    fill: $color-active-icon;
-  }
-  &-edit:active {
-    fill: $color-active-icon;
-  }
-  &-recover:active {
-    fill: $color-active-icon;
-  }
-  &-delete {
-    &.deleted {
-      fill: red;
-    }
-    &:active {
-      fill: $color-active-icon;
-    }
-  }
+  position: relative;
+  width: 100px;
 }
 
 .task-time {
+  position: absolute;
+  padding-top: 3px;
+  left: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 58px;
   height: 25px;
   background-color: $bg-color-dark;
   border-radius: 20px;
@@ -88,14 +35,17 @@
   }
   &.deleted {
     color: red;
-    opacity: 0.7;
+    opacity: 0.5;
+  }
+  &.opened {
+    left: 100px;
   }
 }
 
 .task-desc {
-  max-width: 80%;
-  margin-left: 10px;
-  transition: 0.25s ease-out;
+  // max-width: 80%;
+  margin-left: 5px;
+  transition: 0.2s ease-out;
   @include font(1.5rem, 500);
   &.completed {
     text-decoration: line-through;
@@ -103,12 +53,22 @@
   }
   &.deleted {
     color: red;
-    opacity: 0.7;
+    opacity: 0.5;
   }
   &:hover {
     cursor: pointer;
   }
   &.anim {
     opacity: 0;
+  }
+  @include media-mobile {
+    white-space: nowrap;
+    max-width: 70%;
+    overflow: scroll;
+  }
+  &::-webkit-scrollbar {
+    @include media-mobile {
+      display: none;
+    }
   }
 }

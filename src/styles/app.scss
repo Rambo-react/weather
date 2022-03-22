@@ -1,6 +1,6 @@
 @import-normalize;
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;300;500&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;300;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;300;400;500&display=swap");
 @import "./utils.scss";
 
@@ -15,29 +15,14 @@
 html {
   font-size: 10px;
   @extend %font-primary;
+  @include media-tablet-big {
+    font-size: 9px;
+  }
 }
 
 body {
   box-sizing: border-box;
   color: #fff;
-}
-
-/* полоса прокрутки (скроллбар) */
-::-webkit-scrollbar {
-  width: 6px; /* ширина для вертикального скролла */
-  height: 6px;
-  background-color: #ffffff31;
-}
-
-/* ползунок скроллбара */
-::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 9rem;
-  // box-shadow: inset 1px 1px 10px #000000;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: white;
 }
 
 h1,
@@ -51,26 +36,158 @@ p {
   margin: 0;
 }
 
-.App {
+.app {
   height: 100vh;
-  background-color: #ccc;
   display: flex;
+  &.none {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
+  }
+  &.thunderstorm {
+    background-image: linear-gradient(rgba(65, 65, 65, 0.8), rgba(65, 65, 65, 0.8)),
+      url(../../public/assets/img/thunderstorm.jpg);
+  }
+  &.drizzle {
+    background-image: linear-gradient(rgba(65, 65, 65, 0.8), rgba(65, 65, 65, 0.8)),
+      url(../../public/assets/img/drizzle.png);
+  }
+  &.rain {
+    background-image: linear-gradient(rgba(65, 65, 65, 0.8), rgba(65, 65, 65, 0.8)),
+      url(../../public/assets/img/rain.jpg);
+  }
+  &.snow {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/snow.jpg);
+  }
+  &.mist {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/fog_mist.jpg);
+  }
+  &.sand {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/sand_dust.jpg);
+  }
+  &.wind {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/wind.jpg);
+  }
+  &.tornado {
+    background-image: linear-gradient(rgba(65, 65, 65, 0.8), rgba(65, 65, 65, 0.8)),
+      url(../../public/assets/img/tornado.jpg);
+  }
+  &.clear {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/clear.jpg);
+  }
+  &.cloudy {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+      url(../../public/assets/img/clouds.jpg);
+  }
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: auto;
-  height: 800px;
   width: 1200px;
-  // background-image: url(../../public/assets/img/rain.jpg);
-  background-image: url(../../public/assets/img/clear.jpg);
+  height: 750px;
+  @include media-tablet-big {
+    width: 980px;
+    height: calc(100vh - 40px);
+  }
+  @include media-tablet {
+    width: calc(100vw - 40px);
+    // height: calc(100vh - 40px);
+  }
+  @include media-mobile {
+    width: 100vw;
+    height: auto;
+    // height: calc(100vh - 40px);
+  }
+  box-shadow: 0 0 20px black;
+  &.none {
+    background-image: linear-gradient(rgba(0, 183, 255, 0.4), rgba(0, 183, 255, 0.2));
+  }
+  &.thunderstorm {
+    background-image: url(../../public/assets/img/thunderstorm.jpg);
+  }
+  &.drizzle {
+    background-image: url(../../public/assets/img/drizzle.png);
+  }
+  &.rain {
+    background-image: url(../../public/assets/img/rain.jpg);
+  }
+  &.snow {
+    background-image: url(../../public/assets/img/snow.jpg);
+  }
+  &.mist {
+    background-image: url(../../public/assets/img/fog_mist.jpg);
+  }
+  &.sand {
+    background-image: url(../../public/assets/img/sand_dust.jpg);
+  }
+  &.wind {
+    background-image: url(../../public/assets/img/wind.jpg);
+  }
+  &.tornado {
+    background-image: url(../../public/assets/img/tornado.jpg);
+  }
+  &.clear {
+    background-image: url(../../public/assets/img/clear.jpg);
+  }
+  &.cloudy {
+    background-image: url(../../public/assets/img/clouds.jpg);
+  }
   background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: 0 0 20px black;
+}
+
+.container {
+  padding: 0 100px;
+  
+  @include media-tablet-big {
+    padding: 0 60px;
+  }
+  @include media-mobile {
+    padding: 0 10px;
+  }
+  &-head {
+    padding: 20px 100px 0 100px;
+    @include media-tablet-big {
+      padding: 20px 60px 0 60px;
+    }
+    @include media-mobile {
+      padding: 10px 10px 0 10px;
+    }
+  }
+  &-todo {
+    display: flex;
+    flex: 1;
+    @include media-mobile {
+      display: block;
+    }
+  }
 }
 
 .head-panel {
   display: flex;
   justify-content: space-between;
-  // align-items: center;
-  padding: 20px 100px 0 120px;
+  @include media-tablet {
+    flex-wrap: wrap;
+  }
+}
+
+.notification-wrapper {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1500;
+  @include media-mobile {
+    left: 10px;
+    right: 10px;
+    top: 10px;
+  }
 }

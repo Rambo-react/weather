@@ -1,10 +1,12 @@
 @import "./utils.scss";
 
 .place-wrapper {
-  // padding-right: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
+  @include media-mobile {
+    margin-top:10px;
+  }
 }
 
 .city,
@@ -12,6 +14,9 @@
   text-align: right;
   color: $color-font;
   @extend %shadow-text;
+  @include media-mobile {
+    text-align: left;
+  }
 }
 
 .city {

@@ -1,9 +1,9 @@
-import s from './Preloader.module.css';
+import './Preloader.scss';
 
 function Preloader() {
   return (
-    <div className={s.body}>
-      <div className={s.water}> </div>
+    <div className="body">
+      <div className="water"> </div>
     </div>
   );
 }

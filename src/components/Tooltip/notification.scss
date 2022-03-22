@@ -1,0 +1,28 @@
+@import "../../styles/utils.scss";
+
+.notification {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $bg-color-dark;
+  border-radius: 30px;
+  color: $color-font;
+  @include font(1.2rem, 300);
+  &:hover {
+    cursor: pointer;
+  }
+  &.hidden {
+    display: none;
+  }
+  & > div {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  z-index: 1050;
+  &-icon {
+    fill: #fff;
+  }
+}

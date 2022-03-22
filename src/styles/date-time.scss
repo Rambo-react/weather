@@ -2,6 +2,9 @@
 
 .datetime-wrapper {
   // padding-left: 120px;
+  @include media-mobile {
+    margin-bottom: 15px;
+  }
 }
 
 .time {

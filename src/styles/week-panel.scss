@@ -1,4 +1,10 @@
+@import './utils.scss';
+
 .week-panel {
   display: flex;
   justify-content: space-between;
+  // overflow-x: hidden;
+  @include media-mobile {
+    overflow-x: scroll;
+  }
 }

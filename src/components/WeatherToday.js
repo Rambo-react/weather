@@ -10,11 +10,11 @@ function WeatherToday({
       {/* <div className="today">{`Today, ${nameDay}`}</div> */}
       <div className="today">TODAY</div>
       <div className="today-weather-info">
-        <div>
+        <div className="today-icon-block">
           <div className="today-desc">{weatherDescription}</div>
           <WeatherIcon weatherId={weatherId} classN="weather-ico-today" />
         </div>
-        <div>
+        <div className="today-desc-block">
           <div className="today-temp">
             {temp}
             &#176;

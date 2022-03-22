@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useDebounce from '../redux/Hooks/useDebounce';
 import { setCoords, getAllMatches, resetDataListCities } from '../redux/positionReducer';
 import '../styles/search-panel.scss';
+import DropdownMenu from './DropdownMenu';
 
-function SearchPanel() {
+function SearchPanel({ setTooltip }) {
   const selectionArea = useSelector((state) => state.geoposition.listboxCityNames);
   const dispatch = useDispatch();
-  // const input = React.createRef();
   // ============================================================================debounce
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -23,32 +24,29 @@ function SearchPanel() {
         setIsSearching(false);
       }
     },
-    [debouncedSearchTerm],
+    [debouncedSearchTerm, dispatch],
   );
   // ============================================================================end debounce
 
-  console.log('render SearchPanel');
-  console.log('isSearching', isSearching);
+  // function changeCity(e) {
+  //   const longitude = e.target.attributes.long.value;
+  //   const latitude = e.target.attributes.lat.value;
+  //   dispatch(setCoords({ longitude, latitude }));
+  //   dispatch(resetDataListCities());
+  //   setSearchTerm('');
+  // }
 
-  function changeCity(e) {
-    const longitude = e.target.attributes.long.value;
-    const latitude = e.target.attributes.lat.value;
-    dispatch(setCoords({ longitude, latitude }));
-    dispatch(resetDataListCities());
-    setSearchTerm('');
-  }
+  // function selectCity(e) {
+  //   if (e.target.className === 'search-drop-down-menu-item') {
+  //     changeCity(e);
+  //   }
+  // }
 
-  function selectCity(e) {
-    if (e.target.className === 'search-drop-down-menu-item') {
-      changeCity(e);
-    }
-  }
-
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      changeCity(e);
-    }
-  }
+  // function handleKeyDown(e) {
+  //   if (e.keyCode === 13) {
+  //     changeCity(e);
+  //   }
+  // }
 
   function onChangeHandler(e) {
     setIsSearching(true);
@@ -56,38 +54,58 @@ function SearchPanel() {
   }
 
   function successPos(position) {
-    console.log('navigation button', position);
     dispatch(setCoords(position.coords));
   }
 
   function errorPos() {
-    alert('Failed to get location data.');
+    setTooltip('Location unavailable. Enter the name of the city in the search bar.');
   }
 
   function navigationHandler() {
     if (!navigator.geolocation) {
-      alert('Browser no support NAVIGATOR');
+      setTooltip('Browser no support "navigator". Enter the name of the city in the search bar.');
     } else {
       navigator.geolocation.getCurrentPosition(successPos, errorPos);
     }
   }
 
+  function onBlurHandler(e) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setSearchTerm('');
+    }
+  }
+
+  function inputKeyDownHandler(e) {
+    if (e.keyCode === 27) {
+      setSearchTerm('');
+    }
+  }
+
   return (
-    <div className="search-block">
+    <div tabIndex={-1} className="search-block not-blur" onBlur={(e) => onBlurHandler(e)}>
       <div className="search-panel">
         <div className="search-wrapper">
-          <input value={searchTerm} className={`search ${isSearching && 'loading'} ${selectionArea.length > 0 && 'open'}`} placeholder="Search city" title="Enter the name of the city." onChange={(e) => onChangeHandler(e)} />
-          {(selectionArea.length > 0) && (
-            <ul tabIndex={0} role="menu" className="search-drop-down-menu" onClick={selectCity} onKeyDown={handleKeyDown}>
+          <input value={searchTerm} className={`search ${isSearching && 'loading'} ${selectionArea.length > 0 && 'open'}`} placeholder="Search city" title="Enter the name of the city." onChange={(e) => onChangeHandler(e)} onKeyDown={inputKeyDownHandler} />
+          {(selectionArea.length > 0)
+            && (
+              <DropdownMenu
+                selectionArea={selectionArea}
+                setSearchTerm={(val) => setSearchTerm(val)}
+              />
+            )}
+          {/* {(selectionArea.length > 0) && (
+            <ul tabIndex={0} role="menu" className="search-drop-down-menu"
+            onClick={selectCity} onKeyDown={handleKeyDown}>
               {selectionArea.map((el) => (
-                <li key={el.placeFullName.placeNameEn} long={el.coords.longitude} lat={el.coords.latitude} className="search-drop-down-menu-item">
+                <li key={el.placeFullName.placeNameEn} long={el.coords.longitude}
+                lat={el.coords.latitude} className="search-drop-down-menu-item">
                   {el.placeFullName.placeNameEn}
                 </li>
               ))}
             </ul>
-          )}
+          )} */}
         </div>
-        <div tabIndex={-1} className="search-position" title="Find my location?" role="button" onClick={navigationHandler} onKeyDown={navigationHandler}>
+        <div tabIndex={0} className="search-position" title="Find my location?" role="button" onClick={navigationHandler} onKeyDown={navigationHandler}>
           <div className="search-position-icon"> </div>
         </div>
       </div>
@@ -98,5 +116,9 @@ function SearchPanel() {
     </div>
   );
 }
+
+SearchPanel.propTypes = {
+  setTooltip: PropTypes.func.isRequired,
+};
 
 export default SearchPanel;
