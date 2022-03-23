@@ -1,3 +1,4 @@
+import { withErrorBoundary } from 'react-error-boundary';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/app.scss';
@@ -42,7 +43,7 @@ function App() {
       dispatch(setFirstStart());
       navigator.geolocation.getCurrentPosition(successPos, errorPos);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   //  Get position if coords not null
@@ -50,7 +51,7 @@ function App() {
     if (longitude && latitude) {
       dispatch(getPosition(latitude, longitude));
     }
-  }, [dispatch]);
+  }, [dispatch, longitude, latitude]);
 
   //  GET weather data if got city name
   useEffect(() => {
@@ -82,4 +83,6 @@ function App() {
   );
 }
 
-export default App;
+export default withErrorBoundary(App, {
+  fallback: <div style={{ fontSize: '5rem' }}>Something went wrong ...</div>,
+});

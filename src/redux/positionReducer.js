@@ -58,7 +58,7 @@ export function getPosition(latitude, longitude) {
     dispatch(fetchPosition(true));
     const data = await openGeocodingAPI.getPlace(latitude, longitude);
     if (typeof data === 'string') {
-      // error
+      alert(data);
     } else {
       //  get names : place, country from apiData
       const place = {
@@ -91,8 +91,10 @@ export function getAllMatches(searchText) {
         placeName = searchText;
       }
       const data = await openGeocodingAPI.getCoordsByText(placeName, countryISO);
-      // debugger;
-      if (data.length < 1) {
+
+      if (typeof data === 'string') {
+        alert(data);
+      } else if (data.length < 1) {
         dispatch(resetDataListCities());
       } else {
         let countryObj = null;
