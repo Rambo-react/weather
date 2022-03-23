@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import {
   useCallback,
-  // useEffect,
   useRef,
   useState,
 } from 'react';
@@ -23,12 +22,6 @@ function Task({
     setAnimation('anim');
     const timerId = setTimeout(() => { setAnimation(''); dispatch(toggleCompleteTodo(id)); clearTimeout(timerId); }, 250);
   }, [id, dispatch]);
-
-  // useEffect(() => {
-  //   console.log('useEffect в Task');
-  //      const timerId = setTimeout(() => completeHandler(), 250);
-
-  // }, [id, completeHandler]);
 
   return (
     <li className="task-wrapper">
@@ -54,7 +47,6 @@ function Task({
           title="Left Click - mark as done."
           tabIndex={-1}
           role="button"
-          // onClick={timerId}
           onClick={completeHandler}
           onKeyDown={completeHandler}
         >

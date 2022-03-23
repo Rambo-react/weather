@@ -28,26 +28,6 @@ function SearchPanel({ setTooltip }) {
   );
   // ============================================================================end debounce
 
-  // function changeCity(e) {
-  //   const longitude = e.target.attributes.long.value;
-  //   const latitude = e.target.attributes.lat.value;
-  //   dispatch(setCoords({ longitude, latitude }));
-  //   dispatch(resetDataListCities());
-  //   setSearchTerm('');
-  // }
-
-  // function selectCity(e) {
-  //   if (e.target.className === 'search-drop-down-menu-item') {
-  //     changeCity(e);
-  //   }
-  // }
-
-  // function handleKeyDown(e) {
-  //   if (e.keyCode === 13) {
-  //     changeCity(e);
-  //   }
-  // }
-
   function onChangeHandler(e) {
     setIsSearching(true);
     setSearchTerm(e.target.value);
@@ -93,17 +73,6 @@ function SearchPanel({ setTooltip }) {
                 setSearchTerm={(val) => setSearchTerm(val)}
               />
             )}
-          {/* {(selectionArea.length > 0) && (
-            <ul tabIndex={0} role="menu" className="search-drop-down-menu"
-            onClick={selectCity} onKeyDown={handleKeyDown}>
-              {selectionArea.map((el) => (
-                <li key={el.placeFullName.placeNameEn} long={el.coords.longitude}
-                lat={el.coords.latitude} className="search-drop-down-menu-item">
-                  {el.placeFullName.placeNameEn}
-                </li>
-              ))}
-            </ul>
-          )} */}
         </div>
         <div tabIndex={0} className="search-position" title="Find my location?" role="button" onClick={navigationHandler} onKeyDown={navigationHandler}>
           <div className="search-position-icon"> </div>

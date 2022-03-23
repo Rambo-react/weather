@@ -5,16 +5,17 @@ import InfoPanel from './components/InfoPanel';
 import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';
 import WeatherPanel from './components/WeatherPanel';
-import { getPosition, setCoords } from './redux/positionReducer';
+import { getPosition, setCoords, setFirstStart } from './redux/positionReducer';
 import { getWeatherFromApi } from './redux/weatherReducer';
 import TodoPanel from './components/TodoPanel';
 import Notification from './components/Notification/Notification';
 
 function App() {
-  const [tooltip, setTooltip] = useState('');
+  const [notification, setNotification] = useState('');
   const selectedApi = useSelector((state) => state.weather.selectedApi);
   const longitude = useSelector((state) => state.geoposition.longitude);
   const latitude = useSelector((state) => state.geoposition.latitude);
+  const firstStart = useSelector((state) => state.geoposition.firstStart);
   // for background img
   const backgroundDesc = useSelector((state) => state.weather.backgroundDesc);
 
@@ -30,17 +31,18 @@ function App() {
     }
     //  error
     function errorPos() {
-      setTooltip('Location unavailable. Enter the name of the city in the search bar.');
-      // setTooltip('Location unavailable.<br /> Enter city name in the search bar.');
-      // alert('Failed to get location data.APP');
+      if (!firstStart) {
+        setNotification('Location unavailable. Enter the name of the city in the search bar.');
+      }
     }
 
     if (!navigator.geolocation) {
-      setTooltip('Browser no support "navigator". Enter the name of the city in the search bar.');
+      setNotification('Browser no support "navigator". Enter the name of the city in the search bar.');
     } else {
+      dispatch(setFirstStart());
       navigator.geolocation.getCurrentPosition(successPos, errorPos);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   //  Get position if coords not null
@@ -48,7 +50,7 @@ function App() {
     if (longitude && latitude) {
       dispatch(getPosition(latitude, longitude));
     }
-  }, [latitude, longitude, dispatch]);
+  }, [dispatch]);
 
   //  GET weather data if got city name
   useEffect(() => {
@@ -61,13 +63,13 @@ function App() {
     <div className={`app ${backgroundDesc}`}>
 
       <div className={`wrapper ${backgroundDesc}`}>
-        <div className="notification-wrapper" tabIndex={-1} role="textbox" onClick={() => setTooltip('')} onKeyDown={() => setTooltip('')}>
-          {tooltip && <Notification text={tooltip} />}
+        <div className="notification-wrapper" tabIndex={-1} role="textbox" onClick={() => setNotification('')} onKeyDown={() => setNotification('')}>
+          {notification && <Notification text={notification} />}
         </div>
         <div className="container container-head">
           <div className="head-panel">
             <SelectApiPanel selectedApi={selectedApi} />
-            <SearchPanel setTooltip={(text) => setTooltip(text)} />
+            <SearchPanel setTooltip={(text) => setNotification(text)} />
           </div>
           <InfoPanel />
         </div>

@@ -1,7 +1,6 @@
 @import './utils.scss';
 
 .datetime-wrapper {
-  // padding-left: 120px;
   @include media-mobile {
     margin-bottom: 15px;
   }
@@ -10,7 +9,6 @@
 .time {
   @include font(8rem, 500);
   @extend %shadow-text;
-  // 4px 2px 2px black
 }
 
 .times-of-day {

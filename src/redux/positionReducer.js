@@ -5,7 +5,7 @@ const FETCH_POSITION = 'FETCH_POSITION';
 const SET_POSITION = 'SET_POSITION';
 const SET_DATA_LIST_CITIES = 'SET_DATA_LIST_CITIES';
 const RESET_DATA_LIST_CITIES = 'RESET_DATA_LIST_CITIES';
-// const FIRST_START = 'FIRST_START';
+const FIRST_START = 'FIRST_START';
 
 const defaultState = {
   longitude: null,
@@ -13,7 +13,7 @@ const defaultState = {
   isFetchingPosition: false,
   position: null,
   listboxCityNames: [],
-  // firstStart: false,
+  firstStart: false,
 };
 
 const positionReducer = (state = defaultState, action) => {
@@ -38,10 +38,10 @@ const positionReducer = (state = defaultState, action) => {
       return {
         ...state, listboxCityNames: action.payload,
       };
-    // case FIRST_START:
-    //   return {
-    //     ...state, firstStart: action.payload,
-    //   };
+    case FIRST_START:
+      return {
+        ...state, firstStart: action.payload,
+      };
     default: return state;
   }
 };
@@ -51,25 +51,27 @@ export const fetchPosition = (payload) => ({ type: FETCH_POSITION, payload });
 export const setPosition = (position) => ({ type: SET_POSITION, payload: position });
 export const setDataListCities = (payload) => ({ type: SET_DATA_LIST_CITIES, payload });
 export const resetDataListCities = () => ({ type: SET_DATA_LIST_CITIES, payload: [] });
-// export const firstStartSet = () => ({ type: FIRST_START, payload: true });
+export const setFirstStart = () => ({ type: FIRST_START, payload: true });
 
 export function getPosition(latitude, longitude) {
   return async (dispatch) => {
     dispatch(fetchPosition(true));
     const data = await openGeocodingAPI.getPlace(latitude, longitude);
-    console.log('Получаем населенный пункт с поомщью координат:', data);
-    //  get names : place, country from apiData
-    const place = {
-      placeEn: data[0].text_en,
-      placeRu: data[0].text_ru,
-    };
-    const country = {
-      countryEn: (data[2]?.text_en || data[1].text_en),
-      countryRu: (data[2]?.text_ru || data[1].text_ru),
-    };
-    console.log('======EQUIL COUNTRY=', country);
+    if (typeof data === 'string') {
+      // error
+    } else {
+      //  get names : place, country from apiData
+      const place = {
+        placeEn: data[0].text_en,
+        placeRu: data[0].text_ru,
+      };
+      const country = {
+        countryEn: (data[2]?.text_en || data[1].text_en),
+        countryRu: (data[2]?.text_ru || data[1].text_ru),
+      };
+      dispatch(setPosition({ place, country }));
+    }
     dispatch(fetchPosition(false));
-    dispatch(setPosition({ place, country }));
   };
 }
 
@@ -89,24 +91,24 @@ export function getAllMatches(searchText) {
         placeName = searchText;
       }
       const data = await openGeocodingAPI.getCoordsByText(placeName, countryISO);
-      console.log('Получаем массив совпадений и их координаты с помощью поисковой строки:', data);
       // debugger;
       if (data.length < 1) {
         dispatch(resetDataListCities());
-        console.log('Совпадений нет, перефразируйте запрос поиска, введите название населённого пункта');
       } else {
         let countryObj = null;
         const listboxCityList = data.map((el) => {
           // проверка для таких стран как гонгонг
           if (el.context) {
             countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
+            if (countryObj.length === 0) {
+              countryObj = [el.context['0']];
+            }
           } else {
             countryObj = [{
               text_en: el.place_name_en,
               text_ru: el.place_name_ru,
             }];
           }
-
           return {
             placeFullName: {
               placeNameEn: el.place_name_en,

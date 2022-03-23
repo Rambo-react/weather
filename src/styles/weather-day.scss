@@ -1,7 +1,6 @@
 @import "./utils.scss";
 
 .weather-day-wrapper {
-  // min-height: 255px;
   margin: 3px;
   padding: 2px;
   text-align: center;
@@ -17,15 +16,11 @@
 }
 
 .weather-desc {
-  // height: 28px;
-  // margin-top: 10px;
   @include font(1.2rem, 500);
   @extend %shadow-text-hard;
 }
 
 .temp {
-  // position: relative;
-  // top: -10px;
   @include font(3rem, 500);
   @extend %shadow-text-hard;
 }

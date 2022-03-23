@@ -55,9 +55,6 @@ function ToDoPanel() {
         date: inputDate.current.value,
         desc: inputText.current.value,
       }));
-      inputDate.current.value = '';
-      inputTime.current.value = '';
-      inputText.current.value = '';
     } else if (mode === 'Edit task') {
       dispatch(editTodo({
         id: tempId,
@@ -65,11 +62,11 @@ function ToDoPanel() {
         date: inputDate.current.value,
         desc: inputText.current.value,
       }));
-      inputDate.current.value = '';
-      inputTime.current.value = '';
-      inputText.current.value = '';
       setTempId(null);
     }
+    inputDate.current.value = '';
+    inputTime.current.value = '';
+    inputText.current.value = '';
     setHide('');
     inputText.current.focus();
     inputText.current.blur();
@@ -103,7 +100,7 @@ function ToDoPanel() {
     setMode('Add task');
     inputDate.current.value = moment().format('YYYY-MM-DD');
     inputTime.current.value = moment().format('HH:mm');
-    inputText.current.focus();
+    // inputText.current.focus();
   }
 
   function handleClickOpenMenu() {
@@ -192,8 +189,8 @@ function ToDoPanel() {
             <span>{mode}</span>
           </div>
           <input tabIndex={opened ? 0 : -1} ref={inputText} type="text" maxLength={250} className="todo-text" placeholder="Enter task" onKeyDown={onKeyDownInput} />
-          <input tabIndex={opened ? 0 : -1} ref={inputDate} type="date" min={today} className="todo-date" onKeyDown={onKeyDownInput} />
-          <input tabIndex={opened ? 0 : -1} ref={inputTime} type="time" className="todo-time" onKeyDown={onKeyDownInput} />
+          <input tabIndex={opened ? 0 : -1} ref={inputDate} type="date" min={today} className="todo-date" onKeyDown={onKeyDownInput} id="todo-date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+          <input tabIndex={opened ? 0 : -1} ref={inputTime} type="time" className="todo-time" onKeyDown={onKeyDownInput} id="todo-time" />
         </div>
       </div>
     </div>

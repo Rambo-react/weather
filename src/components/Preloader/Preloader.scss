@@ -1,14 +1,21 @@
+@import '../../styles/utils.scss';
+
 .body {
-  // height: 275px;
-  // height: 293px;
-  // height: auto;
   min-height: 275px;
-  // height: max-content;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(34, 47, 82, 0.6);
+  @include media-tablet-big {
+    min-height: 262px;
+  }
+  @include media-tablet {
+    min-height: 324px;
+  }
+  @include media-mobile {
+    min-height: 475px;
+  }
 }
 
 .water {

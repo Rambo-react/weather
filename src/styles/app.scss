@@ -1,6 +1,4 @@
 @import-normalize;
-// @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;300;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;300;400;500&display=swap");
 @import "./utils.scss";
 
@@ -99,13 +97,12 @@ p {
     height: calc(100vh - 40px);
   }
   @include media-tablet {
-    width: calc(100vw - 40px);
-    // height: calc(100vh - 40px);
+    height: 100vh;
+    width: 100vw;
   }
   @include media-mobile {
     width: 100vw;
     height: auto;
-    // height: calc(100vh - 40px);
   }
   box-shadow: 0 0 20px black;
   &.none {

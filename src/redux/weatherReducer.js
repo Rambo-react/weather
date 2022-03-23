@@ -99,7 +99,6 @@ export function getWeatherFromApi(latitude, longitude, selectedApi) {
     let weekWeather = null;
     if (selectedApi === 'first') {
       data = await weatherApiFirst.getWeather(latitude, longitude);
-      console.log('Получаем погоду из координат АПИ №1:', data);
       // разбираем данные на необходимые элементы
       data.daily.length = 7;
       weekWeather = data.daily.map((el) => {
@@ -118,7 +117,6 @@ export function getWeatherFromApi(latitude, longitude, selectedApi) {
       });
     } else if (selectedApi === 'second') {
       data = await weatherApiSecond.getWeather(latitude, longitude);
-      console.log('Получаем погоду из координат АПИ №2:', data);
       data.data.length = 7;
       weekWeather = data.data.map((el) => {
         const nameDay = moment(el.ts * 1000).format('ddd');
@@ -135,7 +133,6 @@ export function getWeatherFromApi(latitude, longitude, selectedApi) {
         };
       });
     }
-    console.log('ТО что будет записано в базу:', weekWeather);
     dispatch(weatherFetch(false));
     dispatch(setWeather(weekWeather));
     // установить погоду для бэкграунда

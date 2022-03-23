@@ -3,8 +3,11 @@
 .week-panel {
   display: flex;
   justify-content: space-between;
-  // overflow-x: hidden;
+  @include media-tablet {
+    padding: 0 25px;
+  }
   @include media-mobile {
     overflow-x: scroll;
+    padding: 0;
   }
 }

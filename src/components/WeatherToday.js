@@ -7,7 +7,6 @@ function WeatherToday({
 }) {
   return (
     <div className="weather-today-wrapper">
-      {/* <div className="today">{`Today, ${nameDay}`}</div> */}
       <div className="today">TODAY</div>
       <div className="today-weather-info">
         <div className="today-icon-block">
@@ -61,5 +60,3 @@ WeatherToday.propTypes = {
 };
 
 export default WeatherToday;
-
-// tempDay, tempFeels, tempMax, tempMin, weatherDescription, weatherId, windSpeed

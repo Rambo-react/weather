@@ -16,7 +16,6 @@ function WeatherPanel() {
   if (!weatherData) {
     return (
       <Preloader />
-      // <div className="weather-wrapper">NO data</div>
     );
   }
 
