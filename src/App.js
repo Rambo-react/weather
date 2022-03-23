@@ -8,7 +8,7 @@ import WeatherPanel from './components/WeatherPanel';
 import { getPosition, setCoords } from './redux/positionReducer';
 import { getWeatherFromApi } from './redux/weatherReducer';
 import TodoPanel from './components/TodoPanel';
-import Notification from './components/Tooltip/Notification';
+import Notification from './components/Notification/Notification';
 
 function App() {
   const [tooltip, setTooltip] = useState('');
