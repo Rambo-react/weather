@@ -5,6 +5,9 @@
   justify-content: space-between;
   background-color: rgb(34, 47, 82, 0.6);
   padding: 5px 25px 20px;
+  @include media-desktop {
+    padding: 5px 5px 20px;
+  }
   @include media-tablet {
     flex-direction: column;
     padding: 5px 0px 20px;

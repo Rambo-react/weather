@@ -105,37 +105,13 @@
       display: none;
     }
   }
-  @include media-mobile {
+  @include media-tablet-nostandart {
     font-size: 0px;
     width: 33px;
     background-color: $color-white;
     background: url(../../public/assets/svg/datepicker.svg) 50% 50% no-repeat, white;
     &::-webkit-inner-spin-button {
       display: none;
-    }
-    &::-webkit-datetime-edit {
-      opacity: 0;
-    }
-    &::-webkit-datetime-edit-fields-wrapper {
-      opacity: 0;
-    }
-    &::-webkit-datetime-edit-text {
-      opacity: 0;
-    }
-    &::-webkit-datetime-edit-month-field {
-      opacity: 0;
-    }
-    &::-webkit-datetime-edit-day-field {
-      opacity: 0;
-    }
-    &::-webkit-datetime-edit-year-field {
-      opacity: 0;
-    }
-    &::-webkit-inner-spin-button {
-      opacity: 0;
-    }
-    &::-webkit-calendar-picker-indicator {
-      opacity: 0;
     }
   }
 }
@@ -156,7 +132,7 @@
       display: none;
     }
   }
-  @include media-mobile {
+  @include media-tablet-nostandart {
     font-size: 0px;
     width: 33px;
     background-color: $color-white;
@@ -231,11 +207,11 @@
     }
   }
   > span {
-    @include media-mobile {
+    @include media-tablet-nostandart {
       display: none;
     }
   }
-  @include media-mobile {
+  @include media-tablet-nostandart {
     width: 33px;
   }
 }
@@ -250,11 +226,11 @@
     }
   }
   > span {
-    @include media-mobile {
+    @include media-tablet-nostandart {
       display: none;
     }
   }
-  @include media-mobile {
+  @include media-tablet-nostandart {
     width: 33px;
   }
 }

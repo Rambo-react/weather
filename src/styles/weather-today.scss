@@ -13,7 +13,7 @@
     margin-bottom: 15px;
     background-color: rgb($bg-color-dark, 0.6);
   }
-  @include media-mobile {
+  @include media-tablet-nostandart {
     display:block;
   }
 }
@@ -22,8 +22,12 @@
   display: flex;
   text-align: center;
   margin: auto 0;
-  @include media-mobile {
+  @include media-tablet-nostandart {
     justify-content: space-evenly;
+    flex-direction: column;
+  }
+  @include media-mobile {
+    flex-direction: row;
   }
 }
 
@@ -55,6 +59,9 @@
     display: flex;
     align-items: center;
   }
+  @include media-tablet-nostandart {
+    justify-content: center;
+  }
   @include media-mobile {
     display:block;
   }
@@ -64,6 +71,9 @@
   @include media-tablet {
     display: flex;
     align-items: center;
+  }
+  @include media-tablet-nostandart {
+    justify-content: center;
   }
   @include media-mobile {
     display:block;

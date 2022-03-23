@@ -9,10 +9,14 @@
   &-today {
     width: 150px;
     height: 150px;
-    @include media-tablet-big {
+    @include media-desktop {
       width: 130px;
       height: 130px;
     }
+    // @include media-tablet-big {
+    //   width: 130px;
+    //   height: 130px;
+    // }
     @include media-tablet {
       width: 60px;
       height: 60px;
@@ -22,9 +26,14 @@
       height: 150px;
     }
   }
-  @include media-tablet-big {
+  @include media-desktop {
     width: 100px;
     height: 100px;
   }
+
+  // @include media-tablet-big {
+  //   width: 100px;
+  //   height: 100px;
+  // }
 }
 

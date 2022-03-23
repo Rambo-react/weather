@@ -11,7 +11,7 @@ function WeatherIcon({ weatherId, classN }) {
     );
   }
   const iconObj = iconCodes.find((item) => item.codes.includes(weatherId));
-  const pathToImg = `assets/svg/${iconObj.iconId}.svg`;
+  const pathToImg = `../weather/assets/svg/${iconObj.iconId}.svg`;
 
   return (
     <div className={classN} style={{ backgroundImage: `url(${pathToImg})` }}> </div>

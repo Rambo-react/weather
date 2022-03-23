@@ -6,6 +6,10 @@
   @include media-tablet {
     padding: 0 25px;
   }
+  @include media-tablet-nostandart {
+    overflow-x: scroll;
+    padding: 0px;
+  }
   @include media-mobile {
     overflow-x: scroll;
     padding: 0;
