@@ -50,7 +50,7 @@ export const setCoords = (coords) => ({ type: SET_COORDS, payload: coords });
 export const fetchPosition = (payload) => ({ type: FETCH_POSITION, payload });
 export const setPosition = (position) => ({ type: SET_POSITION, payload: position });
 export const setDataListCities = (payload) => ({ type: SET_DATA_LIST_CITIES, payload });
-export const resetDataListCities = () => ({ type: SET_DATA_LIST_CITIES, payload: [] });
+export const resetDataListCities = () => ({ type: RESET_DATA_LIST_CITIES, payload: [] });
 export const setFirstStart = () => ({ type: FIRST_START, payload: true });
 
 export function getPosition(latitude, longitude) {

@@ -60,6 +60,8 @@ function App() {
     }
   }, [latitude, longitude, selectedApi, dispatch]);
 
+  // console.log('RENDER APP');
+
   return (
     <div className={`app ${backgroundDesc}`}>
 
@@ -70,7 +72,7 @@ function App() {
         <div className="container container-head">
           <div className="head-panel">
             <SelectApiPanel selectedApi={selectedApi} />
-            <SearchPanel setTooltip={(text) => setNotification(text)} />
+            <SearchPanel setNotification={(text) => setNotification(text)} />
           </div>
           <InfoPanel />
         </div>

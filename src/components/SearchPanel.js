@@ -6,7 +6,7 @@ import { setCoords, getAllMatches, resetDataListCities } from '../redux/position
 import '../styles/search-panel.scss';
 import DropdownMenu from './DropdownMenu';
 
-function SearchPanel({ setTooltip }) {
+function SearchPanel({ setNotification }) {
   const selectionArea = useSelector((state) => state.geoposition.listboxCityNames);
   const dispatch = useDispatch();
   // ============================================================================debounce
@@ -38,12 +38,12 @@ function SearchPanel({ setTooltip }) {
   }
 
   function errorPos() {
-    setTooltip('Location unavailable. Enter the name of the city in the search bar.');
+    setNotification('Location unavailable. Enter the name of the city in the search bar.');
   }
 
   function navigationHandler() {
     if (!navigator.geolocation) {
-      setTooltip('Browser no support "navigator". Enter the name of the city in the search bar.');
+      setNotification('Browser no support "navigator". Enter the name of the city in the search bar.');
     } else {
       navigator.geolocation.getCurrentPosition(successPos, errorPos);
     }
@@ -60,6 +60,8 @@ function SearchPanel({ setTooltip }) {
       setSearchTerm('');
     }
   }
+
+  // console.log('RENDER SEARCHPANEL');
 
   return (
     <div tabIndex={-1} className="search-block not-blur" onBlur={(e) => onBlurHandler(e)}>
@@ -87,7 +89,7 @@ function SearchPanel({ setTooltip }) {
 }
 
 SearchPanel.propTypes = {
-  setTooltip: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default SearchPanel;
