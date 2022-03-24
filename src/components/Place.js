@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import '../styles/place.scss';
 
 function Place({ placeEn, countryEn }) {
-  // console.log('RENDER PLACE');
   return (
     <div className="place-wrapper">
       <h3 className="city">{placeEn}</h3>

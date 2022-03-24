@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import WeatherIcon from './WeatherIcon';
 import '../styles/weather-day.scss';
@@ -55,4 +56,4 @@ WeatherDay.propTypes = {
   weatherId: PropTypes.number,
 };
 
-export default WeatherDay;
+export default React.memo(WeatherDay);

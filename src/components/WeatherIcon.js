@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Preloader from './Preloader/Preloader';
@@ -28,4 +29,4 @@ WeatherIcon.propTypes = {
   classN: PropTypes.string,
 };
 
-export default WeatherIcon;
+export default React.memo(WeatherIcon);

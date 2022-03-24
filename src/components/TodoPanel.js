@@ -1,7 +1,7 @@
 import '../styles/todo-panel.scss';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import {
+import React, {
   useMemo,
   useRef,
   useState,
@@ -197,4 +197,4 @@ function ToDoPanel() {
   );
 }
 
-export default ToDoPanel;
+export default React.memo(ToDoPanel);

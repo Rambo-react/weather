@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {
+import React, {
   useCallback,
   useRef,
   useState,
@@ -66,4 +66,4 @@ Task.propTypes = {
   startEdit: PropTypes.func.isRequired,
 };
 
-export default Task;
+export default React.memo(Task);

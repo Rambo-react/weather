@@ -33,15 +33,19 @@ function SearchPanel({ setNotification }) {
     setSearchTerm(e.target.value);
   }
 
-  function successPos(position) {
-    dispatch(setCoords(position.coords));
-  }
-
-  function errorPos() {
-    setNotification('Location unavailable. Enter the name of the city in the search bar.');
+  function inputKeyDownHandler(e) {
+    if (e.keyCode === 27) {
+      setSearchTerm('');
+    }
   }
 
   function navigationHandler() {
+    function successPos(position) {
+      dispatch(setCoords(position.coords));
+    }
+    function errorPos() {
+      setNotification('Location unavailable. Enter the name of the city in the search bar.');
+    }
     if (!navigator.geolocation) {
       setNotification('Browser no support "navigator". Enter the name of the city in the search bar.');
     } else {
@@ -54,14 +58,6 @@ function SearchPanel({ setNotification }) {
       setSearchTerm('');
     }
   }
-
-  function inputKeyDownHandler(e) {
-    if (e.keyCode === 27) {
-      setSearchTerm('');
-    }
-  }
-
-  // console.log('RENDER SEARCHPANEL');
 
   return (
     <div tabIndex={-1} className="search-block not-blur" onBlur={(e) => onBlurHandler(e)}>

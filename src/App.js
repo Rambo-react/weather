@@ -60,8 +60,6 @@ function App() {
     }
   }, [latitude, longitude, selectedApi, dispatch]);
 
-  // console.log('RENDER APP');
-
   return (
     <div className={`app ${backgroundDesc}`}>
 

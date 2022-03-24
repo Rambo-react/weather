@@ -9,7 +9,21 @@ function DateTime() {
     setTime(moment());
   }
 
+  // что бы не рендерить каждую секунду, можно вычислить сколько осталось до следущей минуты секунд
+  // и через этот промежуток времени запустить интервал с периодичностью 60 сек
   useEffect(() => {
+    // если нужна перерисовка каждую минуту можно так
+    // const delay = (60 - Number(moment().format('ss'))) * 1000;
+    // let intervalID = null;
+    // const TimerID = setTimeout(() => {
+    //   intervalID = setInterval(() => tick(), 60000);
+    //   clearTimeout(TimerID);
+    // }, delay);
+    // return () => {
+    //   clearInterval(intervalID);
+    //   clearTimeout(TimerID);
+    // };
+    // каждую секунду перерисовка
     const intervalID = setInterval(() => tick(), 1000);
     return () => clearInterval(intervalID);
   }, []);
