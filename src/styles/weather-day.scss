@@ -18,6 +18,10 @@
 .weather-desc {
   @include font(1.2rem, 500);
   @extend %shadow-text-hard;
+  min-height: 28px;
+  @include media-tablet-big {
+    min-height: auto;
+  }
 }
 
 .temp {
