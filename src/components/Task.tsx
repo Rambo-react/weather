@@ -24,7 +24,8 @@ function Task({
   const dispatch = useDispatch();
   const [contextMenuOpen, setContextMenuOpen] = useState(false);
   const [animation, setAnimation] = useState('');
-  const inputText = useRef<HTMLDivElement>();
+  // const inputText = useRef<HTMLDivElement>();
+  const inputText = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const completeHandler = useCallback(() => {
     setAnimation('anim');

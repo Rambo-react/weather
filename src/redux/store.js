@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import weatherReducer from './weatherReducer.tsx';
-import positionReducer from './positionReducer';
+import weatherReducer from './weatherReducer.ts';
+import positionReducer from './positionReducer.ts';
 import todoReducer from './todoReducer';
 
 const rootReducer = combineReducers({

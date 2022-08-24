@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // import React from 'react';
 import { useDispatch } from 'react-redux';
-import { resetDataListCities, setCoords } from '../redux/positionReducer';
+import { resetDataListCities, setCoords } from '../redux/positionReducer.ts';
 import '../styles/dropdown-menu.scss';
 
 function DropdownMenu({ selectionArea, setSearchTerm }) {

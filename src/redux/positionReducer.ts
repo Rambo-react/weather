@@ -1,11 +1,11 @@
 import openGeocodingAPI from '../api/apiGeocoding';
 
-const SET_COORDS = 'SET_COORDS';
-const FETCH_POSITION = 'FETCH_POSITION';
-const SET_POSITION = 'SET_POSITION';
-const SET_DATA_LIST_CITIES = 'SET_DATA_LIST_CITIES';
-const RESET_DATA_LIST_CITIES = 'RESET_DATA_LIST_CITIES';
-const FIRST_START = 'FIRST_START';
+export const SET_COORDS = 'SET_COORDS';
+export const FETCH_POSITION = 'FETCH_POSITION';
+export const SET_POSITION = 'SET_POSITION';
+export const SET_DATA_LIST_CITIES = 'SET_DATA_LIST_CITIES';
+export const RESET_DATA_LIST_CITIES = 'RESET_DATA_LIST_CITIES';
+export const FIRST_START = 'FIRST_START';
 
 const defaultState = {
   longitude: null,
@@ -97,7 +97,7 @@ export function getAllMatches(searchText) {
       } else if (data.length < 1) {
         dispatch(resetDataListCities());
       } else {
-        let countryObj = null;
+        let countryObj;
         const listboxCityList = data.map((el) => {
           // проверка для таких стран как гонгонг
           if (el.context) {

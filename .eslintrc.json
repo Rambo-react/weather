@@ -25,11 +25,22 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "linebreak-style": ["error", "windows"],
-        "default-param-last": 0
+        "default-param-last": 0,
+        "no-plusplus": 0,
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+         ]
     },
     "overrides": [
         {
-          "files": ["*.ts", "*.tsx"],
+          "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
           "rules": {
             "no-undef": "off"
           }

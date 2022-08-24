@@ -6,9 +6,9 @@ import InfoPanel from './components/InfoPanel';
 import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';
 import WeatherPanel from './components/WeatherPanel';
-import { getPosition, setCoords, setFirstStart } from './redux/positionReducer';
+import { getPosition, setCoords, setFirstStart } from './redux/positionReducer.ts';
 // import { getWeatherFromApi } from './redux/weatherReducer';
-import { getWeatherFromApi } from './redux/weatherReducer.tsx';
+import { getWeatherFromApi } from './redux/weatherReducer.ts';
 import TodoPanel from './components/TodoPanel';
 import Notification from './components/Notification/Notification';
 

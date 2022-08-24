@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { WeatherActionTypes, DefaultStateType, IconCode } from './weatherTypes.ts';
 import { weatherApiFirst, weatherApiSecond } from '../api/apiWeather';
 
 export const FETCH_WEATHER: string = 'FETCH_WEATHER';
@@ -6,14 +7,9 @@ export const SET_WEATHER: string = 'SET_WEATHER';
 export const SET_WEATHER_API: string = 'SET_WEATHER_API';
 export const SET_BACKGROUND_DESC: string = 'SET_BACKGROUND_DESC';
 
-type IconCode = {
-  iconId: number,
-  backgroundDesc: string,
-  codes: Array<number>,
-}
 
 // коды иконок и коды погодных условий
-const iconCodes : Array<IconCode> = [
+const iconCodes: Array<IconCode> = [
   { iconId: 21, backgroundDesc: 'thunderstorm', codes: [200, 230, 231] },
   { iconId: 22, backgroundDesc: 'thunderstorm', codes: [201, 232] },
   { iconId: 23, backgroundDesc: 'thunderstorm', codes: [210] },
@@ -52,13 +48,7 @@ const iconCodes : Array<IconCode> = [
   { iconId: 90, backgroundDesc: '', codes: [900] },
 ];
 
-type DefaultStateType = {
-  weatherData: any,
-  isFetching: boolean,
-  selectedApi: string,
-  iconCodes: Array<IconCode>,
-  backgroundDesc: string,
-}
+
 
 const defaultState: DefaultStateType = {
   weatherData: null,
@@ -68,12 +58,8 @@ const defaultState: DefaultStateType = {
   backgroundDesc: 'none',
 };
 
-const weatherReducer = (state = defaultState, action) => {
+const weatherReducer = (state = defaultState, action: WeatherActionTypes): DefaultStateType => {
   switch (action.type) {
-    case SET_WEATHER_API:
-      return {
-        ...state, selectedApi: action.selectedApi,
-      };
     case FETCH_WEATHER:
       return {
         ...state, isFetching: action.payload,
@@ -81,6 +67,10 @@ const weatherReducer = (state = defaultState, action) => {
     case SET_WEATHER:
       return {
         ...state, weatherData: action.payload,
+      };
+    case SET_WEATHER_API:
+      return {
+        ...state, selectedApi: action.payload,
       };
     case SET_BACKGROUND_DESC:
       return {
@@ -90,10 +80,18 @@ const weatherReducer = (state = defaultState, action) => {
   }
 };
 
-export const setWeatherApi = (selectedApi) => ({ type: SET_WEATHER_API, selectedApi });
-export const weatherFetch = (payload) => ({ type: FETCH_WEATHER, payload });
-export const setWeather = (payload) => ({ type: SET_WEATHER, payload });
-export const setBackgroundDesc = (payload) => ({ type: SET_BACKGROUND_DESC, payload });
+export const fetchWeather = (payload: boolean): WeatherActionTypes => ({
+  type: FETCH_WEATHER, payload,
+});
+export const setWeather = (payload: any): WeatherActionTypes => ({
+  type: SET_WEATHER, payload,
+});
+export const setWeatherApi = (payload: string): WeatherActionTypes => ({
+  type: SET_WEATHER_API, payload,
+});
+export const setBackgroundDesc = (payload: string): WeatherActionTypes => ({
+  type: SET_BACKGROUND_DESC, payload,
+});
 
 // округляет и если остается -0 то преобразует его в 0
 function numRound(num) {
@@ -101,56 +99,70 @@ function numRound(num) {
 }
 
 // устанавливаем значение для фона
-function getBackgroundDesc(weatherId) {
+function getBackgroundDesc(weatherId = 90) {
   const iconObj = iconCodes.find((item) => item.codes.includes(weatherId));
-  return iconObj.backgroundDesc;
+  return iconObj?.backgroundDesc;
 }
 
 export function getWeatherFromApi(latitude, longitude, selectedApi) {
   return async (dispatch) => {
-    dispatch(weatherFetch(true));
-    let data = null;
-    let weekWeather = null;
+    dispatch(fetchWeather(true));
+    let data;
+    const weekWeather: Array<any> = [];
     if (selectedApi === 'first') {
       data = await weatherApiFirst.getWeather(latitude, longitude);
       // разбираем данные на необходимые элементы
-      data.daily.length = 7;
-      weekWeather = data.daily.map((el) => {
-        const nameDay = moment(el.dt * 1000).format('ddd');
-        const temp = numRound(el.temp.day);
-        const tempNight = numRound(el.temp.night);
-        const tempDay = numRound(el.temp.max);
-        const tempFeels = numRound(el.feels_like.day);
-        const weatherDescription = el.weather[0].description.toUpperCase();
-        const weatherId = el.weather[0].id;
-        const windSpeed = el.wind_speed;
-
-        return {
-          nameDay, temp, tempNight, tempDay, tempFeels, weatherDescription, weatherId, windSpeed,
-        };
-      });
+      for (let i = 0; i < 7; i++) {
+        const nameDay = moment(data.daily[i].dt * 1000).format('ddd');
+        const temp = numRound(data.daily[i].temp.day);
+        const tempNight = numRound(data.daily[i].temp.night);
+        const tempDay = numRound(data.daily[i].temp.max);
+        const tempFeels = numRound(data.daily[i].feels_like.day);
+        const weatherDescription = data.daily[i].weather[0].description.toUpperCase();
+        const weatherId = data.daily[i].weather[0].id;
+        const windSpeed = data.daily[i].wind_speed;
+        weekWeather.push(
+          {
+            nameDay,
+            temp,
+            tempNight,
+            tempDay,
+            tempFeels,
+            weatherDescription,
+            weatherId,
+            windSpeed,
+          },
+        );
+      }
     } else if (selectedApi === 'second') {
       data = await weatherApiSecond.getWeather(latitude, longitude);
-      data.data.length = 7;
-      weekWeather = data.data.map((el) => {
-        const nameDay = moment(el.ts * 1000).format('ddd');
-        const temp = numRound(el.temp);
-        const tempNight = numRound(el.low_temp);
-        const tempDay = numRound(el.high_temp);
-        const tempFeels = numRound((el.app_max_temp + el.app_min_temp) / 2);
-        const weatherDescription = el.weather.description.toUpperCase();
-        const weatherId = (el.weather.code === 751) ? 742 : el.weather.code;
-        const windSpeed = el.wind_spd;
-
-        return {
-          nameDay, temp, tempNight, tempDay, tempFeels, weatherDescription, weatherId, windSpeed,
-        };
-      });
+      for (let i = 0; i < 7; i++) {
+        const nameDay = moment(data.data[i].ts * 1000).format('ddd');
+        const temp = numRound(data.data[i].temp);
+        const tempNight = numRound(data.data[i].low_temp);
+        const tempDay = numRound(data.data[i].high_temp);
+        const tempFeels = numRound((data.data[i].app_max_temp + data.data[i].app_min_temp) / 2);
+        const weatherDescription = data.data[i].weather.description.toUpperCase();
+        const weatherId = (data.data[i].weather.code === 751) ? 742 : data.data[i].weather.code;
+        const windSpeed = data.data[i].wind_spd;
+        weekWeather.push(
+          {
+            nameDay,
+            temp,
+            tempNight,
+            tempDay,
+            tempFeels,
+            weatherDescription,
+            weatherId,
+            windSpeed,
+          },
+        );
+      }
     }
-    dispatch(weatherFetch(false));
+    dispatch(fetchWeather(false));
     dispatch(setWeather(weekWeather));
     // установить погоду для бэкграунда
-    const backgroundDesc = getBackgroundDesc(weekWeather[0].weatherId);
+    const backgroundDesc: any = getBackgroundDesc(weekWeather[0].weatherId);
     dispatch(setBackgroundDesc(backgroundDesc));
   };
 }
