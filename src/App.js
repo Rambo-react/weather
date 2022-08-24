@@ -7,7 +7,8 @@ import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';
 import WeatherPanel from './components/WeatherPanel';
 import { getPosition, setCoords, setFirstStart } from './redux/positionReducer';
-import { getWeatherFromApi } from './redux/weatherReducer';
+// import { getWeatherFromApi } from './redux/weatherReducer';
+import { getWeatherFromApi } from './redux/weatherReducer.tsx';
 import TodoPanel from './components/TodoPanel';
 import Notification from './components/Notification/Notification';
 

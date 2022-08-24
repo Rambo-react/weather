@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, {
   useCallback,
   useRef,
@@ -9,14 +8,23 @@ import { toggleCompleteTodo } from '../redux/todoReducer';
 import '../styles/task.scss';
 import Contextmenu from './Contextmenu';
 
+type TaskProps = {
+  id: number,
+  time: string,
+  desc: string,
+  completed: boolean,
+  deleted: boolean,
+  startEdit: () => void,
+}
+
 function Task({
   id, time, desc, completed, deleted,
   startEdit,
-}) {
+}: TaskProps) {
   const dispatch = useDispatch();
   const [contextMenuOpen, setContextMenuOpen] = useState(false);
   const [animation, setAnimation] = useState('');
-  const inputText = useRef();
+  const inputText = useRef<HTMLDivElement>();
 
   const completeHandler = useCallback(() => {
     setAnimation('anim');
@@ -29,11 +37,7 @@ function Task({
         <div className="menu-wrapper">
           <Contextmenu
             id={id}
-            time={time}
-            desc={desc}
-            completed={completed}
             deleted={deleted}
-            inputText={inputText}
             setAnimation={(val) => setAnimation(val)}
             contextMenuOpen={contextMenuOpen}
             setContextMenuOpen={(val) => setContextMenuOpen(val)}
@@ -56,14 +60,5 @@ function Task({
     </li>
   );
 }
-
-Task.propTypes = {
-  id: PropTypes.number.isRequired,
-  time: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
-  deleted: PropTypes.bool.isRequired,
-  startEdit: PropTypes.func.isRequired,
-};
 
 export default React.memo(Task);

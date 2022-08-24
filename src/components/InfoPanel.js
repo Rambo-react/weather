@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DateTime from './DateTime';
-import Place from './Place';
+import Place from './Place.tsx';
 import '../styles/info-panel.scss';
 
 function InfoPanel() {

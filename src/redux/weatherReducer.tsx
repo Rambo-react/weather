@@ -1,13 +1,19 @@
 import moment from 'moment';
 import { weatherApiFirst, weatherApiSecond } from '../api/apiWeather';
 
-const FETCH_WEATHER = 'FETCH_WEATHER';
-const SET_WEATHER = 'SET_WEATHER';
-const SET_WEATHER_API = 'SET_WEATHER_API';
-const SET_BACKGROUND_DESC = 'SET_BACKGROUND_DESC';
+export const FETCH_WEATHER: string = 'FETCH_WEATHER';
+export const SET_WEATHER: string = 'SET_WEATHER';
+export const SET_WEATHER_API: string = 'SET_WEATHER_API';
+export const SET_BACKGROUND_DESC: string = 'SET_BACKGROUND_DESC';
+
+type IconCode = {
+  iconId: number,
+  backgroundDesc: string,
+  codes: Array<number>,
+}
 
 // коды иконок и коды погодных условий
-const iconCodes = [
+const iconCodes : Array<IconCode> = [
   { iconId: 21, backgroundDesc: 'thunderstorm', codes: [200, 230, 231] },
   { iconId: 22, backgroundDesc: 'thunderstorm', codes: [201, 232] },
   { iconId: 23, backgroundDesc: 'thunderstorm', codes: [210] },
@@ -46,7 +52,15 @@ const iconCodes = [
   { iconId: 90, backgroundDesc: '', codes: [900] },
 ];
 
-const defaultState = {
+type DefaultStateType = {
+  weatherData: any,
+  isFetching: boolean,
+  selectedApi: string,
+  iconCodes: Array<IconCode>,
+  backgroundDesc: string,
+}
+
+const defaultState: DefaultStateType = {
   weatherData: null,
   isFetching: false,
   selectedApi: 'first',
