@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setWeatherApi } from '../redux/weatherReducer.ts';
+import { setWeatherApi } from '../redux/weatherReducer';
 import '../styles/select-api.scss';
 
 function SelectApiPanel({ selectedApi }) {

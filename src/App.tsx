@@ -1,25 +1,26 @@
-import { withErrorBoundary } from 'react-error-boundary';
-import { useEffect, useState } from 'react';
+// import { withErrorBoundary } from 'react-error-boundary';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/app.scss';
 import InfoPanel from './components/InfoPanel';
 import SearchPanel from './components/SearchPanel';
 import SelectApiPanel from './components/SelectApiPanel';
 import WeatherPanel from './components/WeatherPanel';
-import { getPosition, setCoords, setFirstStart } from './redux/positionReducer.ts';
+import { getPosition, setCoords, setFirstStart } from './redux/positionReducer';
 // import { getWeatherFromApi } from './redux/weatherReducer';
-import { getWeatherFromApi } from './redux/weatherReducer.ts';
+import { getWeatherFromApi } from './redux/weatherReducer';
 import TodoPanel from './components/TodoPanel';
 import Notification from './components/Notification/Notification';
+import { RootState } from './redux/store';
 
 function App() {
   const [notification, setNotification] = useState('');
-  const selectedApi = useSelector((state) => state.weather.selectedApi);
-  const longitude = useSelector((state) => state.geoposition.longitude);
-  const latitude = useSelector((state) => state.geoposition.latitude);
-  const firstStart = useSelector((state) => state.geoposition.firstStart);
+  const selectedApi = useSelector((state: RootState) => state.weather.selectedApi);
+  const longitude = useSelector((state: RootState) => state.geoposition.longitude);
+  const latitude = useSelector((state: RootState) => state.geoposition.latitude);
+  const firstStart = useSelector((state: RootState) => state.geoposition.firstStart);
   // for background img
-  const backgroundDesc = useSelector((state) => state.weather.backgroundDesc);
+  const backgroundDesc = useSelector((state: RootState) => state.weather.backgroundDesc);
 
   const dispatch = useDispatch();
 
@@ -84,6 +85,7 @@ function App() {
   );
 }
 
-export default withErrorBoundary(App, {
-  fallback: <div style={{ fontSize: '5rem' }}>Something went wrong ...</div>,
-});
+export default App;
+// export default withErrorBoundary(App, {
+//   fallback: <div style={{ fontSize: '5rem' }}>Something went wrong ...</div>,
+// });

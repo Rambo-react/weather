@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WeatherIcon from './WeatherIcon.tsx';
+import WeatherIcon from './WeatherIcon';
 import '../styles/weather-today.scss';
 
 function WeatherToday({

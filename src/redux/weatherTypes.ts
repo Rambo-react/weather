@@ -1,11 +1,12 @@
-import {FETCH_WEATHER, SET_WEATHER, SET_WEATHER_API, SET_BACKGROUND_DESC} from './weatherReducer';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  FETCH_WEATHER, SET_WEATHER, SET_WEATHER_API, SET_BACKGROUND_DESC,
+} from './weatherReducer';
 
-
-//actions
+// actions
 interface IfetchWeather {
   type: typeof FETCH_WEATHER,
-  // isFetching: boolean 
-  payload: boolean 
+  payload: boolean
 }
 
 interface IsetWeather {
@@ -17,7 +18,7 @@ interface IsetWeather {
 interface IsetWeatherApi {
   type: typeof SET_WEATHER_API,
   // selectedApi: string
-   payload: string
+  payload: string
 }
 
 interface IsetBackgroundDesc {

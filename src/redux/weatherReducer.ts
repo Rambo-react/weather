@@ -1,12 +1,11 @@
 import moment from 'moment';
-import { WeatherActionTypes, DefaultStateType, IconCode } from './weatherTypes.ts';
+import { WeatherActionTypes, DefaultStateType, IconCode } from './weatherTypes';
 import { weatherApiFirst, weatherApiSecond } from '../api/apiWeather';
 
-export const FETCH_WEATHER: string = 'FETCH_WEATHER';
-export const SET_WEATHER: string = 'SET_WEATHER';
-export const SET_WEATHER_API: string = 'SET_WEATHER_API';
-export const SET_BACKGROUND_DESC: string = 'SET_BACKGROUND_DESC';
-
+export const FETCH_WEATHER = 'FETCH_WEATHER';
+export const SET_WEATHER = 'SET_WEATHER';
+export const SET_WEATHER_API = 'SET_WEATHER_API';
+export const SET_BACKGROUND_DESC = 'SET_BACKGROUND_DESC';
 
 // коды иконок и коды погодных условий
 const iconCodes: Array<IconCode> = [
@@ -47,8 +46,6 @@ const iconCodes: Array<IconCode> = [
   { iconId: 84, backgroundDesc: 'cloudy', codes: [804] },
   { iconId: 90, backgroundDesc: '', codes: [900] },
 ];
-
-
 
 const defaultState: DefaultStateType = {
   weatherData: null,

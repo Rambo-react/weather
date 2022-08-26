@@ -12,7 +12,7 @@ import {
   toggleDisplayComplited,
   toggleDisplayDeleted,
 } from '../redux/todoReducer';
-import Task from './Task.tsx';
+import Task from './Task';
 import Checkbox from './Checkbox/Checkbox';
 
 function ToDoPanel() {

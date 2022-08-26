@@ -1,6 +1,13 @@
-import {SET_COORDS, FETCH_POSITION, SET_POSITION, SET_DATA_LIST_CITIES, RESET_DATA_LIST_CITIES, FIRST_START} from './positionReducer'
+import {
+  SET_COORDS,
+  FETCH_POSITION,
+  SET_POSITION,
+  SET_DATA_LIST_CITIES,
+  RESET_DATA_LIST_CITIES,
+  FIRST_START,
+} from './positionReducer';
 
-//actions
+// actions
 interface IsetCoords {
   type: typeof SET_COORDS
 }
@@ -25,4 +32,10 @@ interface IfirstStart {
   type: typeof FIRST_START
 }
 
-export type PositionActionTypes = IsetCoords | IfetchPosition | IsetPosition | IsetDataListCities | IresetDataListCities | IfirstStart;
+export type PositionActionTypes =
+  IsetCoords
+  | IfetchPosition
+  | IsetPosition
+  | IsetDataListCities
+  | IresetDataListCities
+  | IfirstStart;

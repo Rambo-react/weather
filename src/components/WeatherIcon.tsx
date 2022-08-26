@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Preloader from './Preloader/Preloader';
 import '../styles/weather-icon.scss';
+import { RootState } from '../redux/store';
 
 type WeatherIconProps = {
   weatherId: number,
@@ -10,14 +11,14 @@ type WeatherIconProps = {
 }
 
 function WeatherIcon({ weatherId = 1000, classN = 'weather-ico' }: WeatherIconProps) {
-  const iconCodes = useSelector((state): Array<object> => state.weather.iconCodes);
+  const iconCodes = useSelector((state: RootState) => state.weather.iconCodes);
   if (weatherId === 1000) {
     return (
       <Preloader />
     );
   }
   const iconObj = iconCodes.find((item) => item.codes.includes(weatherId));
-  const pathToImg = `../weather/assets/svg/${iconObj.iconId}.svg`;
+  const pathToImg = `../weather/assets/svg/${iconObj?.iconId}.svg`;
 
   return (
     <div className={classN} style={{ backgroundImage: `url(${pathToImg})` }}> </div>

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useDebounce from '../redux/Hooks/useDebounce';
-import { setCoords, getAllMatches, resetDataListCities } from '../redux/positionReducer.ts';
+import { setCoords, getAllMatches, resetDataListCities } from '../redux/positionReducer';
+import { RootState } from '../redux/store';
 import '../styles/search-panel.scss';
 import DropdownMenu from './DropdownMenu';
 
 function SearchPanel({ setNotification }) {
-  const selectionArea = useSelector((state) => state.geoposition.listboxCityNames);
+  const selectionArea = useSelector((state: RootState) => state.geoposition.listboxCityNames);
   const dispatch = useDispatch();
   // ============================================================================debounce
   const [searchTerm, setSearchTerm] = useState('');

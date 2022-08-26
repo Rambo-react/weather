@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
-// import React from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { resetDataListCities, setCoords } from '../redux/positionReducer.ts';
+import { resetDataListCities, setCoords } from '../redux/positionReducer';
 import '../styles/dropdown-menu.scss';
 
-function DropdownMenu({ selectionArea, setSearchTerm }) {
+type DropDownMenuProps = {
+  selectionArea: Array<any>,
+  setSearchTerm: (a:string)=> void,
+};
+
+function DropdownMenu({ selectionArea = [], setSearchTerm }: DropDownMenuProps) {
   const dispatch = useDispatch();
 
   function changeCity(e) {
@@ -30,21 +34,12 @@ function DropdownMenu({ selectionArea, setSearchTerm }) {
   return (
     <ul tabIndex={0} role="menu" className="search-drop-down-menu" onClick={selectCity} onKeyDown={handleKeyDown}>
       {selectionArea.map((el) => (
-        <li key={el.placeFullName.placeNameEn} long={el.coords.longitude} lat={el.coords.latitude} className="search-drop-down-menu-item">
+        <li key={el.placeFullName.placeNameEn} data-long={el.coords.longitude} data-lat={el.coords.latitude} className="search-drop-down-menu-item">
           {el.placeFullName.placeNameEn}
         </li>
       ))}
     </ul>
   );
 }
-
-DropdownMenu.defaultProps = {
-  selectionArea: [],
-};
-
-DropdownMenu.propTypes = {
-  selectionArea: PropTypes.arrayOf(PropTypes.object),
-  setSearchTerm: PropTypes.func.isRequired,
-};
 
 export default DropdownMenu;

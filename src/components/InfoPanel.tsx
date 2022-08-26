@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import DateTime from './DateTime';
-import Place from './Place.tsx';
+import Place from './Place';
 import '../styles/info-panel.scss';
+import { RootState } from '../redux/store';
 
 function InfoPanel() {
-  const locality = useSelector((state) => state.geoposition.position);
+  const locality = useSelector((state: RootState) => state.geoposition.position);
   return (
     <div className="info-panel">
       <DateTime />
