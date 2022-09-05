@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { WeatherActionTypes, DefaultStateType, IconCode } from './weatherTypes';
+import { WeatherActionTypes, IconCode, DefaultStateWeatherType } from './weatherTypes';
 import { weatherApiFirst, weatherApiSecond } from '../api/apiWeather';
 
 export const FETCH_WEATHER = 'FETCH_WEATHER';
@@ -47,7 +47,7 @@ const iconCodes: Array<IconCode> = [
   { iconId: 90, backgroundDesc: '', codes: [900] },
 ];
 
-const defaultState: DefaultStateType = {
+const defaultState: DefaultStateWeatherType = {
   weatherData: null,
   isFetching: false,
   selectedApi: 'first',
@@ -55,7 +55,10 @@ const defaultState: DefaultStateType = {
   backgroundDesc: 'none',
 };
 
-const weatherReducer = (state = defaultState, action: WeatherActionTypes): DefaultStateType => {
+const weatherReducer = (
+  state = defaultState,
+  action: WeatherActionTypes,
+): DefaultStateWeatherType => {
   switch (action.type) {
     case FETCH_WEATHER:
       return {
@@ -91,7 +94,7 @@ export const setBackgroundDesc = (payload: string): WeatherActionTypes => ({
 });
 
 // округляет и если остается -0 то преобразует его в 0
-function numRound(num) {
+function numRound(num: number) {
   return (Math.round(num) === +'-0') ? 0 : Math.round(num);
 }
 
@@ -101,8 +104,8 @@ function getBackgroundDesc(weatherId = 90) {
   return iconObj?.backgroundDesc;
 }
 
-export function getWeatherFromApi(latitude, longitude, selectedApi) {
-  return async (dispatch) => {
+export function getWeatherFromApi(latitude: number, longitude: number, selectedApi: string) {
+  return async (dispatch: any) => {
     dispatch(fetchWeather(true));
     let data;
     const weekWeather: Array<any> = [];

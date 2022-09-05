@@ -1,0 +1,99 @@
+@import "../../styles/utils.scss";
+
+.weather-today-wrapper {
+  margin: auto 0;
+  text-align: center;
+  @include media-tablet-big {
+    padding: 0;
+  }
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: rgb($bg-color-dark, 0.6);
+  }
+  @include media-tablet-nostandart {
+    display:block;
+  }
+}
+
+.today-weather-info {
+  display: flex;
+  text-align: center;
+  margin: auto 0;
+  @include media-tablet-nostandart {
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+  @include media-mobile {
+    flex-direction: row;
+  }
+}
+
+.today {
+  margin-right: 10px;
+  display: inline-block;
+  @include font(1.5rem, 500);
+  background-color: rgb(32, 43, 59);
+  border-radius: 20px;
+  padding: 7px 10px 2px 10px;
+  @include media-mobile{
+    margin:5px 0 10px 0;
+  }
+}
+
+.today-desc {
+  @include font(1.4rem, 500);
+  @extend %shadow-text-hard;
+  position: relative;
+  top: 10px;
+  @include media-tablet {
+    position: static;
+    padding-top: 4px;
+  }
+}
+
+.today-desc-block {
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+  }
+  @include media-tablet-nostandart {
+    justify-content: center;
+  }
+  @include media-mobile {
+    display:block;
+  }
+}
+
+.today-icon-block {
+  @include media-tablet {
+    display: flex;
+    align-items: center;
+  }
+  @include media-tablet-nostandart {
+    justify-content: center;
+  }
+  @include media-mobile {
+    display:block;
+  }
+}
+
+.today-temp {
+  @include font(4rem, 500);
+  @extend %shadow-text-hard;
+  text-align: left;
+  margin: 5px 0 0 5px;
+}
+
+.today-temp-feels,
+.today-temp-day,
+.today-temp-night,
+.today-wind {
+  @include font(1.5rem, 300);
+  @extend %shadow-text-hard;
+  text-align: left;
+  margin: 5px 0 0 5px;
+  white-space: nowrap;
+}

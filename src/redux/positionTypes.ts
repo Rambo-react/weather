@@ -7,21 +7,51 @@ import {
   FIRST_START,
 } from './positionReducer';
 
+export type PositionType = {
+  place: {placeEn: string, placeRu: string},
+  country: {countryEn: string, countryRu: string}
+}
+
+export type defaultStatePositionType = {
+  longitude: number | null,
+  latitude: number | null,
+  isFetchingPosition: boolean,
+  position: PositionType | null,
+  listboxCityNames: Array<any>,
+  firstStart: boolean,
+};
+
+export type CoordsType = {
+  longitude: number,
+  latitude: number
+}
+
+export type CoordsNavigatorType = {
+  coords: {
+    latitude: number,
+    longitude: number
+  }
+}
+
 // actions
 interface IsetCoords {
-  type: typeof SET_COORDS
+  type: typeof SET_COORDS,
+  payload: CoordsType
 }
 
 interface IfetchPosition {
-  type: typeof FETCH_POSITION
+  type: typeof FETCH_POSITION,
+  payload: boolean
 }
 
 interface IsetPosition {
-  type: typeof SET_POSITION
+  type: typeof SET_POSITION,
+  payload: PositionType
 }
 
 interface IsetDataListCities {
-  type: typeof SET_DATA_LIST_CITIES
+  type: typeof SET_DATA_LIST_CITIES,
+  payload: Array<any>
 }
 
 interface IresetDataListCities {

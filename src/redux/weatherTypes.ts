@@ -33,7 +33,7 @@ export type IconCode = {
   codes: Array<number>,
 }
 
-export type DefaultStateType = {
+export type DefaultStateWeatherType = {
   weatherData: any,
   isFetching: boolean,
   selectedApi: string,

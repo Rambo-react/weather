@@ -1,4 +1,7 @@
 import openGeocodingAPI from '../api/apiGeocoding';
+import {
+  CoordsType, defaultStatePositionType, PositionActionTypes, PositionType,
+} from './positionTypes';
 
 export const SET_COORDS = 'SET_COORDS';
 export const FETCH_POSITION = 'FETCH_POSITION';
@@ -7,7 +10,7 @@ export const SET_DATA_LIST_CITIES = 'SET_DATA_LIST_CITIES';
 export const RESET_DATA_LIST_CITIES = 'RESET_DATA_LIST_CITIES';
 export const FIRST_START = 'FIRST_START';
 
-const defaultState = {
+const defaultState: defaultStatePositionType = {
   longitude: null,
   latitude: null,
   isFetchingPosition: false,
@@ -16,7 +19,7 @@ const defaultState = {
   firstStart: false,
 };
 
-const positionReducer = (state = defaultState, action) => {
+const positionReducer = (state = defaultState, action: PositionActionTypes) => {
   switch (action.type) {
     case SET_COORDS:
       return {
@@ -36,25 +39,25 @@ const positionReducer = (state = defaultState, action) => {
       };
     case RESET_DATA_LIST_CITIES:
       return {
-        ...state, listboxCityNames: action.payload,
+        ...state, listboxCityNames: [],
       };
     case FIRST_START:
       return {
-        ...state, firstStart: action.payload,
+        ...state, firstStart: true,
       };
     default: return state;
   }
 };
 
-export const setCoords = (coords) => ({ type: SET_COORDS, payload: coords });
-export const fetchPosition = (payload) => ({ type: FETCH_POSITION, payload });
-export const setPosition = (position) => ({ type: SET_POSITION, payload: position });
-export const setDataListCities = (payload) => ({ type: SET_DATA_LIST_CITIES, payload });
-export const resetDataListCities = () => ({ type: RESET_DATA_LIST_CITIES, payload: [] });
-export const setFirstStart = () => ({ type: FIRST_START, payload: true });
+export const setCoords = (coords: CoordsType) => ({ type: SET_COORDS, payload: coords });
+export const fetchPosition = (payload: boolean) => ({ type: FETCH_POSITION, payload });
+export const setPosition = (position: PositionType) => ({ type: SET_POSITION, payload: position });
+export const setDataListCities = (payload: any) => ({ type: SET_DATA_LIST_CITIES, payload });
+export const resetDataListCities = () => ({ type: RESET_DATA_LIST_CITIES });
+export const setFirstStart = () => ({ type: FIRST_START });
 
-export function getPosition(latitude, longitude) {
-  return async (dispatch) => {
+export function getPosition(latitude: number, longitude: number) {
+  return async (dispatch: any) => {
     dispatch(fetchPosition(true));
     const data = await openGeocodingAPI.getPlace(latitude, longitude);
     if (typeof data === 'string') {
@@ -75,8 +78,8 @@ export function getPosition(latitude, longitude) {
   };
 }
 
-export function getAllMatches(searchText) {
-  return async (dispatch) => {
+export function getAllMatches(searchText: string) {
+  return async (dispatch: any) => {
     dispatch(fetchPosition(true));
     if (searchText.includes(';')) {
       dispatch(resetDataListCities());
@@ -98,10 +101,10 @@ export function getAllMatches(searchText) {
         dispatch(resetDataListCities());
       } else {
         let countryObj;
-        const listboxCityList = data.map((el) => {
+        const listboxCityList = data.map((el: any) => {
           // проверка для таких стран как гонгонг
           if (el.context) {
-            countryObj = el.context.filter((element) => element.id.split('.')[0] === 'country');
+            countryObj = el.context.filter((element: any) => element.id.split('.')[0] === 'country');
             if (countryObj.length === 0) {
               countryObj = [el.context['0']];
             }

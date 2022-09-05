@@ -1,0 +1,10 @@
+@import '../../styles/utils.scss';
+
+.info-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  @include media-mobile {
+    flex-direction: column;
+  }
+}

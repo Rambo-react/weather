@@ -1,0 +1,39 @@
+@import '../../styles/utils.scss';
+
+.weather-ico {
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 120px;
+  height: 120px;
+  &-today {
+    width: 150px;
+    height: 150px;
+    @include media-desktop {
+      width: 130px;
+      height: 130px;
+    }
+    // @include media-tablet-big {
+    //   width: 130px;
+    //   height: 130px;
+    // }
+    @include media-tablet {
+      width: 60px;
+      height: 60px;
+    }
+    @include media-mobile {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  @include media-desktop {
+    width: 100px;
+    height: 100px;
+  }
+
+  // @include media-tablet-big {
+  //   width: 100px;
+  //   height: 100px;
+  // }
+}
+

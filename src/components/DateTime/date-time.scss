@@ -1,0 +1,22 @@
+@import '../../styles/utils.scss';
+
+.datetime-wrapper {
+  @include media-mobile {
+    margin-bottom: 15px;
+  }
+}
+
+.time {
+  @include font(8rem, 500);
+  @extend %shadow-text;
+}
+
+.times-of-day {
+  @include font(3rem, 300);
+  @extend %shadow-text;
+}
+
+.date {
+  @include font(1.5rem, 300);
+  @extend %shadow-text;
+}

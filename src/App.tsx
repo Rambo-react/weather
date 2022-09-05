@@ -1,17 +1,18 @@
-// import { withErrorBoundary } from 'react-error-boundary';
+import { withErrorBoundary } from 'react-error-boundary';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles/app.scss';
-import InfoPanel from './components/InfoPanel';
-import SearchPanel from './components/SearchPanel';
-import SelectApiPanel from './components/SelectApiPanel';
-import WeatherPanel from './components/WeatherPanel';
+import InfoPanel from './components/InfoPanel/InfoPanel';
+import SearchPanel from './components/SearchPanel/SearchPanel';
+import SelectApiPanel from './components/SelectApiPanel/SelectApiPanel';
+import WeatherPanel from './components/WeatherPanel/WeatherPanel';
 import { getPosition, setCoords, setFirstStart } from './redux/positionReducer';
 // import { getWeatherFromApi } from './redux/weatherReducer';
 import { getWeatherFromApi } from './redux/weatherReducer';
-import TodoPanel from './components/TodoPanel';
+import TodoPanel from './components/TodoPanel/TodoPanel';
 import Notification from './components/Notification/Notification';
 import { RootState } from './redux/store';
+import { CoordsNavigatorType } from './redux/positionTypes';
 
 function App() {
   const [notification, setNotification] = useState('');
@@ -27,17 +28,17 @@ function App() {
   //  Get coords from NAVIGATOR
   useEffect(() => {
     //  success
-    function successPos(position) {
+    const successPos = (position: CoordsNavigatorType) => {
       if (!longitude && !latitude) {
         dispatch(setCoords(position.coords));
       }
-    }
+    };
     //  error
-    function errorPos() {
+    const errorPos = () => {
       if (!firstStart) {
         setNotification('Location unavailable. Enter the name of the city in the search bar.');
       }
-    }
+    };
 
     if (!navigator.geolocation) {
       setNotification('Browser no support "navigator". Enter the name of the city in the search bar.');
@@ -85,7 +86,7 @@ function App() {
   );
 }
 
-export default App;
-// export default withErrorBoundary(App, {
-//   fallback: <div style={{ fontSize: '5rem' }}>Something went wrong ...</div>,
-// });
+// export default App;
+export default withErrorBoundary(App, {
+  fallback: <div style={{ fontSize: '5rem' }}>Something went wrong ...</div>,
+});
